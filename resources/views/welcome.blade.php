@@ -32,18 +32,20 @@
 
             .title {
                 font-size: 96px;
+
             }
-        </style>
-    </head>
-    <body>
+            </style>
+          </head>
+
+           <body>
       {!! Form::open([]) !!}
+
 
  {!! Form::text('name', @$name) !!}
 
  {!! Form::password('password') !!}
 
  {!! Form::submit('Send') !!}
-
  {!! Form::close() !!}
     </body>
 </html>
