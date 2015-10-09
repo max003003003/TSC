@@ -12,6 +12,7 @@ class HomeController extends Controller
     public function showWelcome()
     {
       return  View ('notify/hello');
+
     }
 
 }

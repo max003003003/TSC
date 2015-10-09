@@ -10,7 +10,7 @@ class NotifyController extends Controller
 {
     public function getIndex()
     {
-      return 'this ';
+      return 'this index ';
     }
    public function getAdd()
    {
