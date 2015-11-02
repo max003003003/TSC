@@ -4,27 +4,11 @@ namespace tsc\Http\Middleware;
 
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
+use Redirect;
 
-class Authenticate
+class Informer
 {
-    /**
-     * The Guard implementation.
-     *
-     * @var Guard
-     */
-    protected $auth;
-
-    /**
-     * Create a new filter instance.
-     *
-     * @param  Guard  $auth
-     * @return void
-     */
-    public function __construct(Guard $auth)
-    {
-        $this->auth = $auth;
-    }
-
+       protected $auth;
     /**
      * Handle an incoming request.
      *
@@ -32,15 +16,30 @@ class Authenticate
      * @param  \Closure  $next
      * @return mixed
      */
+     public function __construct(Guard $auth)
+    {
+        $this->auth = $auth;
+    }
+
     public function handle($request, Closure $next)
     {
-        
         if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
                 return redirect()->guest('auth/login');
             }
+        }
+        else {
+            if($this->auth->user()->typ_use==1)
+            {
+                 Redirect::to('notify');
+            }
+            else {
+                
+                Redirect::to('home');
+            }
+
         }
 
         return $next($request);

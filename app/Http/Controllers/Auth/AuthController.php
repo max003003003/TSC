@@ -3,6 +3,8 @@
 namespace tsc\Http\Controllers\Auth;
 
 use tsc\User;
+use tsc\informer;
+use tsc\tech;
 use Validator;
 use tsc\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -41,10 +43,11 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+            return Validator::make($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|confirmed|min:6',
+            'user_type'=>'required',
         ]);
     }
 
@@ -56,10 +59,32 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        if($data['user_type']==2)
+        {
+            
+             $informer=new informer;
+             $informer->name=$data['name'];
+             $informer->save();
+           
+
+        }
+        else if($data['user_type']==3)
+        {
+            
+             $technician=new tech;
+             $technician->name=$data['name'];
+             $technician->department_id=$data['department_id'];
+             $technician->save();           
+
+        }
+
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'typ_use' => $data['user_type'],
+
         ]);
     }
 }
