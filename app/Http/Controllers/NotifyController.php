@@ -8,9 +8,9 @@ use tsc\User;
 use tsc\Notify;
 use tsc\Department;
 use tsc\informer;
-
+use  Validator;
 use tsc\Http\Requests;
-
+use Redirect;
 use tsc\Http\Controllers\Controller;
 
 class NotifyController extends Controller
@@ -95,7 +95,11 @@ class NotifyController extends Controller
     
     public function edit($id)
     {
-        return "hello this edit".$id;
+    	$notify=Notify::findOrFail($id);
+    	 $department=Department::lists('name','id')->all();  
+        $userid=Auth::User()->id;
+
+        return View('notify/notifyedit',['notify'=>$notify,'department'=>$department,'userid'=>$userid]);
     }
 
     /**
@@ -107,8 +111,33 @@ class NotifyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+    		  $rules = array(
+            'description'       => 'required',
+            'location'      => 'required'
+        );
+     
+      $validator = Validator::make($request->all(), $rules);
+
+      
+        if ($validator->fails()) {
+            return Redirect::to('notify/' . $id . '/edit')
+                ->withErrors($validator);
+               
+        } else {
+            // store
+            $nerd = Notify::find($id);
+            $nerd->describe     = $request->input('description');
+            $nerd->location      =$request->input('location');
+            $nerd->department_id = $request->input('department');
+            $nerd->save();
+
+            // redirect
+            $request->session()->flash('message', 'Successfully update');
+            return Redirect::to('notify');
+        }
     }
+
+    
 
     /**
      * Remove the specified resource from storage.
@@ -118,6 +147,10 @@ class NotifyController extends Controller
      */
     public function destroy($id)
     {
-        return "delete page";
+    	$notify=Notify::find($id);
+    	$notify->status="ผู้แจ้งยกเลิก";
+    	$notify->save();
+      
+      return Redirect::to('/notify');
     }
 }

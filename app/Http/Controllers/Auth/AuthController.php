@@ -59,31 +59,38 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-       
-        if($data['user_type']==2)
-        {
-            
-             $informer=new informer;
-             $informer->name=$data['name'];
-             $informer->save();
-           
-
-        }
-        else if($data['user_type']==3)
-        {
-            tech::create([
-             'name'=>$data['name'],
-             'department_id'=>$data['department_id']
-             ]);        
-
-        }
-
-        return User::create([
+        User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'typ_use' => $data['user_type'],
 
         ]);
-    }
+
+       $user=User::where('name','LIKE',$data['name'])->first();
+
+       
+        if($data['user_type']=='2')
+        {
+          
+             $informer=new informer;  
+             $informer->id=$user->id;           
+             $informer->name=$data['name'];
+             $informer->save();
+           
+
+        }
+        else if($data['user_type']=='3')
+        {
+            tech::create([
+             'id'=>$user->id,
+             'name'=>$data['name'],
+             'department_id'=>$data['department_id']
+             ]);        
+
+        }
+
+        return $user;
+    
+}
 }

@@ -9,7 +9,7 @@
       <div class="row">
        
         <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main">  
-       @if(!$notifies)
+       @if($notifies)
         @foreach( $notifies as$notify )    
               @if(  $notify->status =='รอดำเนินการ')                
                   <div class="panel panel-danger"> 
