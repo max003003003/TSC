@@ -37,7 +37,7 @@ class Informer
             }
             else {
                 
-                Redirect::to('home');
+                return "permission denied";
             }
 
         }

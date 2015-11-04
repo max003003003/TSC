@@ -82,12 +82,12 @@ class AuthController extends Controller
         }
         else if($data['user_type']=='3')
         {
-            tech::create([
-             'id'=>$user->id,
-             'name'=>$data['name'],
-             'department_id'=>$data['department_id']
-             ]);        
-
+          
+            $tech= new tech;
+            $tech->id=$user->id;
+            $tech->name=$data['name'];
+            $tech->department_id=$data['department_id'];
+            $tech->save();
         }
 
         return $user;
