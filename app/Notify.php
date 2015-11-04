@@ -13,4 +13,5 @@ class Notify extends Model
     	return $this->belongTo('tsc\Department');
     }
     
+    
 }

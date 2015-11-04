@@ -7,6 +7,7 @@ use Auth;
 use tsc\User;
 use tsc\Notify;
 use tsc\Department;
+use tsc\informer;
 
 use tsc\Http\Requests;
 
@@ -26,11 +27,11 @@ class NotifyController extends Controller
 
          $notify=Notify::where('infomer_id','=',Auth::User()->id)
                 ->where('status','LIKE','รอดำเนินการ')
-                ->first();
-        
+                ->get();
 
+                
         
-        return View('notify/notifyhome',['notify'=>$notify]);
+        return View('notify/notifyhome',['notifies'=>$notify]);
 
     }
 
@@ -44,8 +45,6 @@ class NotifyController extends Controller
         $userid=Auth::User()->id;
         $department=Department::lists('name','id')->all();  
         $tech=User::lists('name','id')->all(); 
-            
-
         return View('notify/notifycreate',['userid'=>$userid,'department'=>$department,'techs'=>$tech]);
     }
 
@@ -81,7 +80,10 @@ class NotifyController extends Controller
      */
     public function show($id)
     {
-        //
+         $notify=Notify::findOrFail($id);
+         $informer=informer::findOrFail($notify->infomer_id);
+         
+         return View('notify/notifyshow',['notify'=>$notify,'informer'=>$informer]);
     }
 
     /**
@@ -93,7 +95,7 @@ class NotifyController extends Controller
     
     public function edit($id)
     {
-        //
+        return "hello this edit".$id;
     }
 
     /**
@@ -116,6 +118,6 @@ class NotifyController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return "delete page";
     }
 }

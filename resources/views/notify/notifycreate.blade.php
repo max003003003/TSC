@@ -1,4 +1,10 @@
 @extends('notify.notifymaster')
+@section('title')
+  create
+@endsection
+@section('linkcreate')
+      <li><a href="">แจ้งซ่อม</a></li>  
+@endsection
 @section('content2')
 			
 		 

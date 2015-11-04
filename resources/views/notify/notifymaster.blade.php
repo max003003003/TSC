@@ -21,7 +21,7 @@
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="notify/create">แจ้งซ่อม</a></li>
+                  @yield('linkcreate');
         
                 <li><a  href="/history">ประวัติ</a></li>
             

@@ -8,8 +8,8 @@
 
 <div  class="container col-md-4 col-md-offset-3">
 <form method="POST" action="/auth/register">
-    {!! csrf_field() !!}
 
+    {!! csrf_field() !!}
     <div   class="form-group">
         Name
         <input type="text" name="name"  class="form-control" value="{{ old('name') }}">
@@ -38,11 +38,7 @@
                     <div class="col-sm-9 col-sm-offset-3">
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>
-                </div>
-    
-
-
-    
+   </div>
 </form>
 </div>
 
