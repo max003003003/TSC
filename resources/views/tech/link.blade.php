@@ -1,0 +1,1 @@
+<h5> <a href=tech/{{$notify->id}}> รายละเอียด</a></h5>

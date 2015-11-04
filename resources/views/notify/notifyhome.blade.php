@@ -10,7 +10,7 @@
        
         <div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-2 main">  
        @if($notifies)
-        @foreach( $notifies as$notify )    
+        @foreach( $notifies as $notify )    
               @if(  $notify->status =='รอดำเนินการ')                
                   <div class="panel panel-danger"> 
                       <div class="panel-heading">
@@ -37,9 +37,57 @@
                       @include('notify.link')     
                     </div>
                   </div> 
+           
+              @elseif($notify->status =='กำลังดำเนินการ')                
+                  <div class="panel panel-primary"> 
+                      <div class="panel-heading">
+                       <h3 class="panel-title">รหัสการแจ้งซ่อม:  {{$notify->id}}
+                       <div class="btn-group pull-right">
+                        
+                        <div class="btn-group pull-right" >                  
+                       {!! Form::open(array('url' => 'notify/' . $notify->id, 'class' => 'pull-right')) !!}
+                       {!! Form::hidden('_method', 'DELETE') !!}
+                       {!! Form::submit('ยกเลิกใบแจ้งซ่อม', array('class' => 'btn btn-danger ')) !!}
+                       {!! Form::close() !!}
+                        
+                      </div>
+                      </div>
+                      </h3>
+                       <div class="clearfix"></div>
+                      </div>
+
+                      <div class="panel-body">                
+                     <h3>  สถานะ : {{$notify->status}}</h3>                   
+                   
+                      @include('notify.link')     
+                    </div>
+                  </div> 
+              @elseif( $notify->status =='ดำเนินการเสร็จสิ้น')
+               <div class="panel panel-success"> 
+                      <div class="panel-heading">
+                       <h3 class="panel-title">รหัสการแจ้งซ่อม:  {{$notify->id}}
+                       <div class="btn-group pull-right">
+                        
+                        <div class="btn-group pull-right" > 
+                            <a class="btn btn-warning" 
+                        href={!! URL::to('rate/' . $notify->id. '/create' )!!} >ประเมิน </a>                 
+                       
+                        
+                      </div>
+                      </div>
+                      </h3>
+                       <div class="clearfix"></div>
+                      </div>
+
+                      <div class="panel-body">                
+                     <h3>  สถานะ : {{$notify->status}}</h3>                   
+                   
+                      @include('notify.link')     
+                    </div>
+                  </div> 
               @endif
       @endforeach
-      @endif
+    @endif      
 
 
 

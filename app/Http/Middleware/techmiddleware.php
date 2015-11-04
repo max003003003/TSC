@@ -2,30 +2,29 @@
 
 namespace tsc\Http\Middleware;
 
-use Closure;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Http\RedirectResponse;
 use Redirect;
+use Closure;
 
-class Informer
+class techmiddleware
 {
-       protected $auth;
     /**
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @return mixed
-     */
+      */
      public function __construct(Guard $auth)
     {
         $this->auth = $auth;
     }
 
+     
     public function handle($request, Closure $next)
     {
-               // dd($this->auth->user()->typ_use);
-        if ($this->auth->guest()) {
+          if ($this->auth->guest()) {
             if ($request->ajax()) {
                 return response('Unauthorized.', 401);
             } else {
@@ -35,19 +34,14 @@ class Informer
         else {
 
 
-            if($this->auth->user()->typ_use==2)
+            if($this->auth->user()->typ_use==3)
             {
                  
                return $next($request);
-            }
-            else if($this->auth->user()->typ_use==3)
-            {
-             return new RedirectResponse(url('tech'));
             }
             
         }
        return new RedirectResponse(url('auth/logout'));
 
-        
     }
 }

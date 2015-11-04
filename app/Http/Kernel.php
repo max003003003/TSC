@@ -29,6 +29,8 @@ class Kernel extends HttpKernel
         'auth' => \tsc\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'guest' => \tsc\Http\Middleware\RedirectIfAuthenticated::class,
-         'informer' => \tsc\Http\Middleware\Informer::class,
+        'informer' => \tsc\Http\Middleware\Informer::class,
+        'techmiddleware'=> \tsc\Http\Middleware\techmiddleware::class,
+
     ];
 }

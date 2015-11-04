@@ -37,7 +37,9 @@
 					'placeholder'=>'โปรดระบุสถานที่')) !!}
 			
              
-			
+				@section('scripts')  
+				    {!!Html::script('js/scrip.js')!!}
+				@endsection
       
 
 			</div>			

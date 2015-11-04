@@ -26,10 +26,8 @@ class NotifyController extends Controller
         
 
          $notify=Notify::where('infomer_id','=',Auth::User()->id)
-                ->where('status','LIKE','รอดำเนินการ')
-                ->get();
-
-                
+                ->where('rate_id','=',NULL)
+                ->get();               
         
         return View('notify/notifyhome',['notifies'=>$notify]);
 
@@ -97,7 +95,7 @@ class NotifyController extends Controller
     {
     	$notify=Notify::findOrFail($id);
     	 $department=Department::lists('name','id')->all();  
-        $userid=Auth::User()->id;
+         $userid=Auth::User()->id;
 
         return View('notify/notifyedit',['notify'=>$notify,'department'=>$department,'userid'=>$userid]);
     }

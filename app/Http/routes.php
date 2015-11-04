@@ -30,7 +30,12 @@ Route::group(['middleware' => 'informer'], function()
 {
     Route::resource('notify', 'NotifyController');
 });
-
+Route::group(['middleware' => 'techmiddleware'], function()
+{
+    Route::resource('tech', 'TechController');
+    Route::resource('job', 'JobController');
+    Route::resource('form', 'JobController');
+});
 
 
 
