@@ -14,7 +14,7 @@ class CreateTechesTable extends Migration
     public function up()
     {
         Schema::create('teches', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id')->unique()->primary();
             $table->integer('department_id')->foreign()->reference('department')->on('id');   
             $table->string('name');           
             $table->timestamps();

@@ -15,10 +15,12 @@ class CreateNotifiesTable extends Migration
         Schema::create('notifies', function (Blueprint $table) {
             $table->increments('id');
             $table->string('describe')->nullable();
+            $table->string('location')->nullable();
             $table->string('status');            
             $table->integer('department_id')->foreign()->reference('department')->on('id');          
-            $table->integer('tech_id')->foreign()->reference('tech')->on('id');    
+            $table->integer('tech_id')->foreign()->reference('tech')->on('id')->nullable();    
             $table->string('comment')->nullable();
+            $table->integer('infomer_id')->foreign()->reference('informer')->on('id');
             $table->integer('rate_id')->foreign()->reference('ratings')->on('id')->nullable();
             $table->timestamps();
         });

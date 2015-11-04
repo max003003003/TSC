@@ -33,25 +33,8 @@
     <!----- {!! Form::select('type', $types) !!}  -->
     {!! Form::select('user_type', array( '2'=>'บุลากร' ,'3'=> 'ช่างเทคนิค' ))  !!}    
    
-   {!! Form::select('department_id', $types)  !!}
- 
-
-</div>
-
-
-
-
-  
-
-    
-   
- 
-  
-    
-
-
-
-   <div class="form-group">
+    {!! Form::select('department_id', $types)  !!}
+    <div class="form-group">
                     <div class="col-sm-9 col-sm-offset-3">
                         <button type="submit" class="btn btn-primary">Register</button>
                     </div>

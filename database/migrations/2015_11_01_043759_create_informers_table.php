@@ -13,7 +13,7 @@ class CreateInformersTable extends Migration
     public function up()
     {
         Schema::create('informers', function (Blueprint $table) {
-            $table->increments('id');
+            $table->integer('id')->unique()->primary();
             $table->string('name')->nullable();            
             $table->timestamps();
         });

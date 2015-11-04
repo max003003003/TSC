@@ -5,8 +5,11 @@ namespace tsc\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use tsc\User;
+use tsc\Notify;
+use tsc\Department;
 
 use tsc\Http\Requests;
+
 use tsc\Http\Controllers\Controller;
 
 class NotifyController extends Controller
@@ -16,13 +19,18 @@ class NotifyController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+    private $userid;
     public function index()
     {
-         
+        
+
+         $notify=Notify::where('infomer_id','=',Auth::User()->id)
+                ->where('status','LIKE','รอดำเนินการ')
+                ->first();
+        
 
         
-        return View('notify/notifyhome');
+        return View('notify/notifyhome',['notify'=>$notify]);
 
     }
 
@@ -33,7 +41,12 @@ class NotifyController extends Controller
      */
     public function create()
     {
-        return View('notify/notifycreate');
+        $userid=Auth::User()->id;
+        $department=Department::lists('name','id')->all();  
+        $tech=User::lists('name','id')->all(); 
+            
+
+        return View('notify/notifycreate',['userid'=>$userid,'department'=>$department,'techs'=>$tech]);
     }
 
     /**
@@ -44,7 +57,20 @@ class NotifyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $location=$request->input('location');
+        $descrip=$request->input('description');
+        $department_id=$request->input('department');
+
+        Notify::create([
+            'describe'=>$descrip,
+            'location'=>$location,
+            'department_id'=>$department_id,
+            'status'=>'รอดำเนินการ',
+            'infomer_id'=>Auth::User()->id
+            ]);
+       return $this->index();
+        
     }
 
     /**

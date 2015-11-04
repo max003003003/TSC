@@ -1,16 +1,18 @@
 <?php
-namespace tsc;
+
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use tsc\Department;
 
-class departmentseedeer extends Seeder
+class DepartmentSeeder extends Seeder
 {
-     
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
     public function run()
     {
-
-    	Department::truncate();
+        Department::truncate();
 
         Department::create([
         	'name'=>'it'

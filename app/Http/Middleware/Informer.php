@@ -31,7 +31,7 @@ class Informer
             }
         }
         else {
-            if($this->auth->user()->typ_use==1)
+            if($this->auth->user()->typ_use==2)
             {
                  Redirect::to('notify');
             }

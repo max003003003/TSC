@@ -16,22 +16,21 @@
           </button>
 
       
-          <a class="navbar-brand" HREF="">ระบบแจ้งซ่อม</a>
+          <a class="navbar-brand" HREF="/notify">ระบบแจ้งซ่อม</a>
 
         </div>
         <div id="navbar" class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="create">แจ้งซ่อม</a></li>
+            <li><a href="notify/create">แจ้งซ่อม</a></li>
         
-                <li><a  href="history">ประวัติ</a></li>
+                <li><a  href="/history">ประวัติ</a></li>
             
             <li><a href="auth/logout">Logout</a> </li>
           </ul>         
         </div>
       </div>
     </nav>
-
-
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.11.3.min.js"></script>
   
  @yield('content2')
 

@@ -23,15 +23,29 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 
 
-
+Route::resource('history','historyController');
 
 Route::group(['prefix' => 'notify'], function() {
-
   
 
-      Route::group(['middleware' => 'informer'], function(){
+        Route::group(['middleware' => 'informer'], function(){
+        Route::get('notify/create',function()
+            {
+                       
+                     return   Redirect::to('notify/create');
+            });	
+
         Route::resource('/', 'NotifyController');
+           
         Route::resource('history','historyController');
+        Route::get('notify/history',function()
+            {
+                     return   Redirect::to('notify/history');
+            });
+
+
+       
+
         Route::get('auth/logout', 'Auth\AuthController@getLogout');
        
     });
@@ -46,7 +60,7 @@ Route::get('home',function(){
 			return Redirect::to('auth/login');
 		}
 		else {
-			return 'hellow';
+			return Redirect::to('notify/');
 		}
 
 });

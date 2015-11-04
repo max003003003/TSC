@@ -1,8 +1,8 @@
 <?php
- 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
-  
+
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -14,9 +14,10 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call('tsc\departmentseedeer');
-        $this->call('tsc\techSeeder');
+        $this->call('DepartmentSeeder');
+        $this->call('Usertableseeder');
+  
 
-        Model::reguard();
+      
     }
 }

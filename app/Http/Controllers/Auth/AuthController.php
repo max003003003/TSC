@@ -59,6 +59,7 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+       
         if($data['user_type']==2)
         {
             
@@ -70,14 +71,12 @@ class AuthController extends Controller
         }
         else if($data['user_type']==3)
         {
-            
-             $technician=new tech;
-             $technician->name=$data['name'];
-             $technician->department_id=$data['department_id'];
-             $technician->save();           
+            tech::create([
+             'name'=>$data['name'],
+             'department_id'=>$data['department_id']
+             ]);        
 
         }
-
 
         return User::create([
             'name' => $data['name'],
