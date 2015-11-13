@@ -14,6 +14,7 @@
 
 Route::get('/', 'HomeController@index');
 
+
 Route::get('/dashboard', [
 	'as' => 'dashboard',
 	'uses' => 'DashboardController@index',
@@ -23,6 +24,8 @@ Route::get('/dashboard', [
 Route::group(['middleware' => ['auth', 'authorize']], function(){
 	Route::resource('users', 'UsersController');
 	Route::resource('roles', 'RolesController');
+	Route::resource('notify','NotifyController');
+	
 	Route::resource('permissions', 'PermissionsController');
 	Route::get('/role_permission', 'RolesPermissionsController@index');
 	Route::post('/role_permission', 'RolesPermissionsController@store');

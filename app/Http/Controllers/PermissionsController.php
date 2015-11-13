@@ -29,9 +29,14 @@ class PermissionsController extends Controller {
 
 	public function store(Request $request)
 	{
+
 		$this->validate($request, array('name' => 'required', 'display_name' => 'required', 'route' => 'required'));
 
+        
 		$permission = $this->permission->create($request->all());
+		
+			  
+		
 
 		$role = $this->role->findBy('name', 'admin');
 
@@ -55,6 +60,8 @@ class PermissionsController extends Controller {
 
 		$permission = $this->permission->find($id);
 		$permission->update($request->all());
+
+		
 
 		Flash::success('Permission successfully updated');
 

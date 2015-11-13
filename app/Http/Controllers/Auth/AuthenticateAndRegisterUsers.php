@@ -75,6 +75,8 @@ trait AuthenticateAndRegisterUsers {
 		]);
 
 		$credentials = $request->only('email', 'password');
+	
+	
 
 		if ($this->auth->attempt($credentials, $request->has('remember')))
 		{

@@ -60,7 +60,7 @@ class UsersController extends Controller {
 			$user->roles()->sync([]);
 		}
 
-		Flash::success('User successfully created');
+		//SessionFlash::success('User successfully created');
 
 		return redirect('/users');
 	}

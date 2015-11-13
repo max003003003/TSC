@@ -22,7 +22,7 @@ class AuthorizeMiddleware {
 	public function handle($request, Closure $next)
 	{
 		$user = $this->auth->user();
-
+		
 		$permissions = $this->permission->all();
 
 		$uri = $request->route()->uri();

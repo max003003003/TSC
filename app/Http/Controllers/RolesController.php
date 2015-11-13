@@ -13,13 +13,16 @@ class RolesController extends Controller {
 
 	public function __construct(Role $role, Permission $permission)
 	{
+
 		$this->role = $role;
 		$this->permission = $permission;
 	}
 
 	public function index()
 	{
+		
 		$roles = $this->role->pushCriteria(new RolesWithPermissions())->paginate(10);
+
 		return view('roles.index', compact('roles'));
 	}
 
@@ -53,12 +56,14 @@ class RolesController extends Controller {
 		}
 		$permissions = $this->permission->all();
 		$rolePerms = $role->perms();
+
+
 		return view('roles.edit', compact('role', 'permissions', 'rolePerms'));
 	}
 
 	public function update(Request $request, $id)
 	{
-		$this->validate($request, array('name' => 'required', 'display_name' => 'required', 'level' => 'required'));
+	   $this->validate($request, array('name' => 'required', 'display_name' => 'required', 'level' => 'required'));
 
 		$role = $this->role->find($id);
 		$role->update($request->all());

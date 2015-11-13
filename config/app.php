@@ -80,7 +80,7 @@ return [
 
 	'key' => env('APP_KEY', 'SomeRandomString'),
 
-	'cipher' => MCRYPT_RIJNDAEL_128,
+	'cipher' => 'AES-256-CBC',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
 	|
 	*/
 
-	'log' => 'daily',
+	 'log' => 'single',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -139,6 +139,8 @@ return [
 		'Collective\Html\HtmlServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
 		'Laracasts\Flash\FlashServiceProvider',
+		'Illuminate\Broadcasting\BroadcastServiceProvider',
+
 
 		/*
 		 * Application Service Providers...
@@ -199,7 +201,8 @@ return [
 		'Entrust'   => 'Zizaco\Entrust\EntrustFacade',
 		'Form'      => 'Collective\Html\FormFacade',
 		'Html'      => 'Collective\Html\HtmlFacade',
-		'Flash'     => 'Laracasts\Flash\Flash'
+		'Flash'     => 'Laracasts\Flash\Flash',
+		'Gate' => 'Illuminate\Support\Facades\Gate'
 
 	],
 
