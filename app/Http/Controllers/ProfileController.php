@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Department;
+
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class DepartmentController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +16,7 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-
-         
-        $department=Department::all();
-
-        return  View('department/index',["department"=>$department]);       
+        return "profile manager";
     }
 
     /**
@@ -30,7 +26,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        return View('department/create');
+        //
     }
 
     /**
@@ -40,13 +36,8 @@ class DepartmentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    { 
-
-        Department::create([
-            'name'=>$request->input('name')
-
-            ]);
-        return redirect('department');
+    {
+        //
     }
 
     /**
@@ -57,7 +48,7 @@ class DepartmentController extends Controller
      */
     public function show($id)
     {
-        
+        //
     }
 
     /**
@@ -68,8 +59,7 @@ class DepartmentController extends Controller
      */
     public function edit($id)
     {
-        $department = Department::find($id);
-        return View('department/edit',['department'=>$department]);
+        //
     }
 
     /**
@@ -81,10 +71,7 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $department=Department::find($id);
-       $department->name=$request->input('name');
-       $department->save();
-       return redirect('/department');
+        //
     }
 
     /**
@@ -95,8 +82,6 @@ class DepartmentController extends Controller
      */
     public function destroy($id)
     {
-          $de=Department::find($id); 
-          $de->delete();
-          return redirect('department');
+        //
     }
 }

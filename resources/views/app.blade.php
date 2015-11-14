@@ -34,7 +34,7 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">
 					<li><a href="{{ url('/') }}">Home</a></li>
-                    @if (Auth::check())
+                    @if(Auth::check())
                     <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles/Permissions</a>
@@ -42,9 +42,11 @@
                             <li><a href="{{ url('/role_permission') }}">Panel</a></li>
 
                             <li><a href="{{ URL::route('roles.index') }}">Roles</a></li>
+
                             <li><a href="{{ URL::route('permissions.index') }}">Permissions</a></li>
                         </ul>
                     </li>
+                     <li><a href="{{ URL::route('department.index') }}">Department</a></li>
                     <li><a href="{{ URL::route('users.index') }}">Users</a></li>
 
                     @endif

@@ -19,13 +19,16 @@ Route::get('/dashboard', [
 	'as' => 'dashboard',
 	'uses' => 'DashboardController@index',
 	'middleware' => 'auth'
-]);
+]); 
+
 
 Route::group(['middleware' => ['auth', 'authorize']], function(){
+
+    Route::resource('profile','ProfileController');   
 	Route::resource('users', 'UsersController');
+	Route::resource('department','DepartmentController');
 	Route::resource('roles', 'RolesController');
-	Route::resource('notify','NotifyController');
-	
+	Route::resource('notify','NotifyController');	
 	Route::resource('permissions', 'PermissionsController');
 	Route::get('/role_permission', 'RolesPermissionsController@index');
 	Route::post('/role_permission', 'RolesPermissionsController@store');
