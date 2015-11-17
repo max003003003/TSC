@@ -9,5 +9,6 @@ class UserRepository extends Repository {
 	{
 		return 'App\User';
 	}
+	 
 
 }

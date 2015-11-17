@@ -85,6 +85,7 @@ class DepartmentController extends Controller
        $department->name=$request->input('name');
        $department->save();
        return redirect('/department');
+       
     }
 
     /**

@@ -48,7 +48,7 @@
                     </li>
                      <li><a href="{{ URL::route('department.index') }}">Department</a></li>
                     <li><a href="{{ URL::route('users.index') }}">Users</a></li>
-
+                    <li><a href="{{ URL::route('profile.index') }}">Profile</a></li>
                     @endif
 				</ul>
 

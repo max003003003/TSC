@@ -6,24 +6,30 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+ use App\Repositories\Criteria\User\UsersWithRoles;
+use Illuminate\Contracts\Auth\Guard;
+use App\Profile;
 class ProfileController extends Controller
 {
+   
+  
+    protected $user;
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param User $user
+     * @param Role $role
+     */
+    
+
+    /**
+     * @return \Illuminate\View\View
      */
     public function index()
     {
-        return "profile manager";
+        $profile=Profile::all();
+        return view('profile.index', compact('profile'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         //

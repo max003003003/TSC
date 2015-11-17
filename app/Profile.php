@@ -8,6 +8,11 @@ class Profile extends Model
 {
     public function user()
     {
-    	return $this->belongTO("App\User");
+    	return $this->belongsTo("App\User");
+
+    }
+    public function department()
+    {
+    	return $this->belongsTo("App\Department");
     }
 }
