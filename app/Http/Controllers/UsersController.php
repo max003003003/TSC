@@ -6,7 +6,8 @@ use App\Repositories\Criteria\User\UsersWithRoles;
 use App\Repositories\UserRepository as User;
 use App\Repositories\RoleRepository as Role;
 use Laracasts\Flash\Flash;
-
+use App\Department;
+use App\Profile;
 class UsersController extends Controller {
 
 	/**
@@ -39,7 +40,8 @@ class UsersController extends Controller {
 	public function create()
 	{
 		$roles = $this->role->all();
-		return view('users.create', compact('roles'));
+		$department=Department::lists('name','id')->all();  
+		return view('users.create', compact('roles','department'));
 	}
 
 	/**
@@ -49,8 +51,9 @@ class UsersController extends Controller {
 	 */
 	public function store(CreateUserRequest $request)
 	{
-		$user = $this->user->create($request->all());
 
+		$user = $this->user->create($request->all());
+		 
 		if($request->get('role'))
 		{
 			$user->roles()->sync($request->get('role'));
@@ -60,8 +63,15 @@ class UsersController extends Controller {
 			$user->roles()->sync([]);
 		}
 
-		//SessionFlash::success('User successfully created');
+          Profile::create(
+			[ "name"=>$request->input('name'),
+               "tel"=>$request->input('tel'),
+               "user_id"=>$user->id,
+               "department_id"=>$request->input('department_id')
+			]
+		);
 
+		//SessionFlash::success('User successfully created');
 		return redirect('/users');
 	}
 
@@ -112,7 +122,11 @@ class UsersController extends Controller {
 	 */
 	public function destroy($id)
 	{
+		$prof=Profile::where('user_id','=',$id )->first();
+		$prof->delete();
+		
 		$this->user->delete($id);
+
 
 		Flash::success('User successfully deleted');
 

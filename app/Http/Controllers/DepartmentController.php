@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Department;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Repositories\UserRepository as User;
+ use App\Repositories\RoleRepository as Role;
 
 class DepartmentController extends Controller
 {
@@ -14,13 +16,15 @@ class DepartmentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
     public function index()
     {
 
          
         $department=Department::all();
 
-        return  View('department/index',["department"=>$department]);       
+        return  View('department/index',["department"=>$department ]);       
     }
 
     /**

@@ -23,7 +23,6 @@ Route::get('/dashboard', [
 
 
 Route::group(['middleware' => ['auth', 'authorize']], function(){
-
     Route::resource('profile','ProfileController');   
 	Route::resource('users', 'UsersController');
 	Route::resource('department','DepartmentController');

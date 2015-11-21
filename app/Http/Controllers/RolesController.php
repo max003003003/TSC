@@ -15,6 +15,7 @@ class RolesController extends Controller {
 	{
 
 		$this->role = $role;
+
 		$this->permission = $permission;
 	}
 
@@ -22,6 +23,7 @@ class RolesController extends Controller {
 	{
 		
 		$roles = $this->role->pushCriteria(new RolesWithPermissions())->paginate(10);
+		 
 
 		return view('roles.index', compact('roles'));
 	}

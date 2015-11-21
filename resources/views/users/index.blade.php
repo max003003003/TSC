@@ -5,7 +5,7 @@
     <table class="table">
         <thead>
         <tr>
-            <th>#</th>
+            
             <th>Email</th>
             <th>Role</th>
             <th colspan="2"><a href="{{ URL::route('users.create') }}" class="btn btn-primary btn-block">Create</a></th>

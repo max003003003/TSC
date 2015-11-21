@@ -37,6 +37,6 @@
         </tbody>
     </table>
 
-    {!! $roles->render() !!}
+   {!! $roles->render() !!}
 
 @stop

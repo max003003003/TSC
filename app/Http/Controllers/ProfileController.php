@@ -9,30 +9,31 @@ use App\Http\Controllers\Controller;
  use App\Repositories\Criteria\User\UsersWithRoles;
 use Illuminate\Contracts\Auth\Guard;
 use App\Profile;
+use App\Repositories\UserRepository as User; 
+use Laracasts\Flash\Flash;
+use Gate;
+
+
 class ProfileController extends Controller
 {
-   
-  
-    protected $user;
-
-    /**
-     * @param User $user
-     * @param Role $role
-     */
+      
+    private  $user; 
+     
+    public function __construct(User $user )
+    {
+        $this->user = $user;
+         
+    }  
     
-
-    /**
-     * @return \Illuminate\View\View
-     */
     public function index()
     {
         $profile=Profile::all();
-        return view('profile.index', compact('profile'));
+        return view('profile.index', compact('profile','user'));
     }
 
     public function create()
     {
-        //
+       // return "hello create";
     }
 
     /**
@@ -43,7 +44,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -65,8 +66,10 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        //
-    }
+        $profile=Profile::find($id)->first();
+      
+        return View("profile.edit",["profile"=>$profile]);
+     }
 
     /**
      * Update the specified resource in storage.

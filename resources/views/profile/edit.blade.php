@@ -13,13 +13,17 @@
         </div>
     @endif
 
-    {!! Form::model($department, ['route' => ['department.update', $department->id], 'method' => 'PATCH']) !!}
+    {!! Form::model($profile, ['route' => ['profile.update', $profile->id], 'method' => 'PATCH']) !!}
 
     <div class="form-group">
         {!! Form::label('name', 'name') !!}
-        {!! Form::text('name', $department->name, ['class' => 'form-control']) !!}
+        {!! Form::text('name', $profile->name, ['class' => 'form-control']) !!}
     </div>
 
+    <div class="form-group">
+        {!! Form::label('tel', 'tel') !!}
+        {!! Form::text('tel', $profile->tel, ['class' => 'form-control']) !!}
+    </div>
     
     <div class="form-group">
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
