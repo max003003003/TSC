@@ -16,8 +16,8 @@ class UsersTableSeeder extends Seeder {
 		$admin->save();
 
 		$editor = new \App\User();
-		$editor->email = "editor@editor.com";
-		$editor->password = "editor";
+		$editor->email = "technician@technician.com";
+		$editor->password = "technician";
 		$editor->save();
 
 		$user = new \App\User();

@@ -41,13 +41,17 @@
                   </a></td>
                 <td>{{ $notify->describe }}</td>
                 <td>{{ $notify->location }}</td>
-                <td>{{ $notify->status }}</td>
+                <td>{{ $notify->status }}</td>                
+                {!! Form::model($notify, array('route' => array('job.update', $notify->id), 'method' => 'PUT')) !!}
+                {!! Form::hidden('status', 'operating') !!}
+                {!! Form::hidden('tech_id', $user->profile()->first()->department_id) !!}
                 <td width="150">
-                 <a class="btn btn-primary" href="{{ URL::route('notify.edit', $notify->id) }}">Edit</a> 
-                    {!! Form::open(array('url' => 'notify/' . $notify->id, 'class' => 'pull-right')) !!}
-                       {!! Form::hidden('_method', 'DELETE') !!}
-                       {!! Form::submit('ยกเลิกใบแจ้งซ่อม', array('class' => 'btn btn-danger ')) !!}
-                       {!! Form::close() !!}
+               <div class="form-group">
+              {!! Form::submit('รับงานซ่อมนี้', ['class' => 'btn btn-primary']) !!}
+              {!! Form::close() !!}
+                  </div>
+                    
+                    
                 </td>
                 
             </tr>

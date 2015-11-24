@@ -20,7 +20,7 @@ class Notifywithuser extends Criteria {
 	public function apply( $model, Repository $repository )
 	{
 
-		$model = $model->find($this->user->id);
+		$model = $model->all();
 		return $model;
 	}
 

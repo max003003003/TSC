@@ -23,8 +23,12 @@ Route::get('/dashboard', [
 
 
 Route::group(['middleware' => ['auth', 'authorize']], function(){
-    Route::resource('profile','ProfileController');   
+    Route::resource('job','JobController');
+    Route::resource('rate','RatingController');
+    Route::resource('job','JobController');
+    Route::resource('history','HistoryController');
 	Route::resource('users', 'UsersController');
+	Route::resource('profile', 'ProfileController');
 	Route::resource('department','DepartmentController');
 	Route::resource('roles', 'RolesController');
 	Route::resource('notify','NotifyController');	

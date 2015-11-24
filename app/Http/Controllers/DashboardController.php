@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
-
+use Auth;
+use Illuminate\Http\RedirectResponse;
 class DashboardController extends Controller {
 
 	/*
@@ -26,7 +27,12 @@ class DashboardController extends Controller {
 
 	public function index()
 	{
-		return view('dashboard.index');
+		if(Auth::user()->hasRole('admin'))		
+	      	return view('dashboard.index',["user"=>Auth::user()]);
+		else 
+			return new RedirectResponse(url('/'));
 	}
+
+
 
 }

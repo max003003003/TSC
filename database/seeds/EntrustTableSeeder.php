@@ -22,8 +22,8 @@ class EntrustTableSeeder extends Seeder {
 		$admin->save();
 
 		$editor = new Role(); // 2
-		$editor->name = 'editor';
-		$editor->display_name = "Editor";
+		$editor->name = 'technician';
+		$editor->display_name = "Technician";
 		$editor->level = 5;
 		$editor->save();
 
@@ -37,7 +37,7 @@ class EntrustTableSeeder extends Seeder {
 		$user->attachRole($admin);
 		//$user->roles()->attach($admin->id); Eloquent basic
 
-		$user1 = User::where('email', '=', 'editor@editor.com')->first();
+		$user1 = User::where('email', '=', 'technician@technician.com')->first();
 		$user1->attachRole($editor);
 
 		$user2 = User::where('email', '=', 'user@user.com')->first();

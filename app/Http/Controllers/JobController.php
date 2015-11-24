@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -10,7 +11,7 @@ use App\User;
 use Illuminate\Contracts\Auth\Guard;
 use App\Department;
 use App\Notify as Noti;
-class NotifyController extends Controller
+class JobController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,27 +20,34 @@ class NotifyController extends Controller
      */
 
 
-
     private  $notifies;
     private  $auth;
     private  $department;
+
 
     public function __construct(Notify $notify,Guard $auth)
      {
              $this->auth=$auth;
              $this->notifies = $notify;
-             $this->department=Department::lists('name','id')->all();  
+             $this->department=Department::lists('name','id')->all();
+
       }
 
-    public function index() {
-       $notifies=\App\Notify::where('user_id','=',$this->auth->user()->id)
-                ->where('rate_id','=',NULL)
+
+
+
+
+    public function index()
+    {
+         
+
+          $notifies=\App\Notify::where('department_id','=',$this->auth->user()->profile()->first()->department_id)
                 ->where('status','=','wait')
                 ->get();  
-        return View('notify/notify',['notifies'=>$notifies]);
+                
+        return View('job/job',['notifies'=>$notifies,'user'=>$this->auth->user()]);
      
-  }
-    
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -48,8 +56,7 @@ class NotifyController extends Controller
      */
     public function create()
     {
-          
-        return View('notify/create',['department'=>$this->department,'user'=>$this->auth->user()]);
+        //
     }
 
     /**
@@ -60,17 +67,7 @@ class NotifyController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $this->validate($request, array('user_id'=>'required','describe' => 'required', 'department_id' => 'required', 'location' => 'required'));
-       
-       
-
-       $notify = $this->notifies->create($request->all());
-
-
-        Flash::success('Notify successfully created');
-
-        return redirect('/');
+        //
     }
 
     /**
@@ -81,11 +78,8 @@ class NotifyController extends Controller
      */
     public function show($id)
     {
-        $notify=$this->notifies->find($id);    
-        return \Response::json($notify);
-
+        //
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -94,10 +88,7 @@ class NotifyController extends Controller
      */
     public function edit($id)
     {
-        
-        $notify=Noti::find($id);
-        return view('notify/edit',['notify'=>$notify,'department'=>$this->department,'user'=>$this->auth->user()]);
-
+        //
     }
 
     /**
@@ -108,18 +99,14 @@ class NotifyController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-
-        $this->validate($request, array('user_id'=>'required','describe' => 'required', 'department_id' => 'required', 'location' => 'required'));
+    { 
         $notify=$this->notifies->find($id);        
 
         $notify->update($request->all());
 
-
         Flash::success('Notify successfully Update');
 
-        return redirect('/notify');
-      
+        return redirect('/');
     }
 
     /**
@@ -130,13 +117,6 @@ class NotifyController extends Controller
      */
     public function destroy($id)
     {
-        $notify=$this->notifies->find($id);        
-        $notify->status="cancel";
-        $notify->update();
-
-
-        Flash::success('Notify successfully Update');
-
-        return redirect('/notify');
+        //
     }
 }
