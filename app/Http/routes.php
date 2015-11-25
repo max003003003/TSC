@@ -24,7 +24,7 @@ Route::get('/dashboard', [
 
 Route::group(['middleware' => ['auth', 'authorize']], function(){
     Route::resource('job','JobController');
-    Route::resource('rate','RatingController');
+    Route::resource('rating','RatingController');
     Route::resource('job','JobController');
     Route::resource('history','HistoryController');
 	Route::resource('users', 'UsersController');

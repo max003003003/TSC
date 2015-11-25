@@ -6,7 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Appcon
+use Laracasts\Flash\Flash;
+use App\Repositories\NotifyRepository as Notify;
+use App\Repositories\Criteria\Notify\Notifywithuser;
+use App\User;
+use Illuminate\Contracts\Auth\Guard;
+use App\Department;
+use App\Notify as Noti;
+
 
 class HistoryController extends Controller
 {
@@ -15,9 +22,20 @@ class HistoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    private  $notifies;
+    private  $auth;
+    private  $department;
+
+    public function __construct(Notify $notify,Guard $auth)
+     {
+             $this->auth=$auth;
+             $this->notifies = $notify;
+             $this->department=Department::lists('name','id')->all();  
+      }
     public function index()
-    {
-        
+    { 
+        return View('history/history',['notifies'=>$this->notifies->paginate(10)]);        
     }
 
     /**
