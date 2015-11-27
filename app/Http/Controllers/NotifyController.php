@@ -33,7 +33,6 @@ class NotifyController extends Controller
 
     public function index() {
        $notifies=\App\Notify::where('user_id','=',$this->auth->user()->id)
-                ->where('rate_id','=',NULL)
                 ->where('status','=','wait')
                 ->get();  
         return View('notify/notify',['notifies'=>$notifies]);
@@ -66,6 +65,9 @@ class NotifyController extends Controller
        
 
        $notify = $this->notifies->create($request->all());
+       $rating= \App\Rate::create();
+       $notify->rate_id=$rating->id;
+       $notify->save();
 
 
         Flash::success('Notify successfully created');

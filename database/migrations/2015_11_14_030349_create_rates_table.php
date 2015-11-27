@@ -14,6 +14,12 @@ class CreateRatesTable extends Migration
     {
         Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('a')->nullable();
+            $table->integer('b')->nullable();
+            $table->integer('c')->nullable();
+            $table->integer('d')->nullable();
+            $table->integer('e')->nullable();            
+            $table->integer('comment')->nullable();
             $table->timestamps();
         });
     }

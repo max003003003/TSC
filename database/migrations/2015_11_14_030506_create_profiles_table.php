@@ -17,10 +17,14 @@ class CreateProfilesTable extends Migration
             $table->string('name');
             $table->string('tel');
             $table->integer('user_id');
-            $table->integer('department_id')->references('id')->on('departments')
+            $table->integer('department_id');
+
+            $table->foreign('department_id')->references('id')->on('departments')
             ->onUpdate('cascade')->onDelete('cascade')->nullable();
+          
             $table->foreign('user_id')->references('id')->on('users')
             ->onUpdate('cascade')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

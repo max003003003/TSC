@@ -52,7 +52,10 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	{
 		return $this->hasOne("App\Profile");
 	}
-
+    public function notify()
+	{
+		return $this->belongsTo("App\Notify");
+	}
 
 	
 }

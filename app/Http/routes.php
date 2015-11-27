@@ -11,7 +11,23 @@
 |
 */
 
+Route::get('sendemail', function () {
+        
+    $data = array(
+        'name' => "Learning Laravel",
+    );
 
+    Mail::send('emails.welcome', $data, function ($message) {
+
+        $message->from('tscwebmaster0@gmail.com', 'Learning Laravel');
+
+        $message->to('max003003003@gmail.com')->subject('Learning Laravel test email');
+
+    });
+  
+    return "Your email has been sent successfully";
+
+});
 Route::get('/', 'HomeController@index');
 
 
