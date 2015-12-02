@@ -1,0 +1,70 @@
+<?php $__env->startSection('content'); ?>
+
+    <?php if(count($errors) > 0): ?>
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                <?php foreach($errors->all() as $error): ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <?php echo Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'PATCH']); ?>
+
+
+    <div class="form-group">
+        <?php echo Form::label('name', 'Name'); ?>
+
+        <?php echo Form::text('name', null, ['class' => 'form-control']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('display_name', 'Display name'); ?>
+
+        <?php echo Form::text('display_name', null, ['class' => 'form-control']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('description', 'Description'); ?>
+
+        <?php echo Form::text('description', null, ['class' => 'form-control']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('level', 'Level'); ?>
+
+        <?php echo Form::text('level', null, ['class' => 'form-control', 'disabled' => 'disabled']); ?>
+
+        <?php echo Form::hidden('level', $role->level); ?>
+
+    </div>
+
+    <div class="form-group">
+        <label for="">Permissions</label>
+        <?php foreach($permissions as $permission): ?>
+         
+
+            <?php $checked = in_array($permission->id,array($rolePerms)); ?>
+                <div class="checkbox">
+                    <label>
+                        <?php echo Form::checkbox('perms[]', $permission->id, $checked); ?> <?php echo e($permission->display_name); ?>
+
+                    </label>
+                </div>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
+
+    </div>
+
+    <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

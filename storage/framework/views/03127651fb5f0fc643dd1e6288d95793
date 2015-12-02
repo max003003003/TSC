@@ -1,0 +1,44 @@
+<?php $__env->startSection('content'); ?>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Display Name</th>
+            <th>Name</th>
+            <th>Level</th>
+            <th>Permissions</th>
+            <th colspan="2"><a href="<?php echo e(URL::route('roles.create')); ?>" class="btn btn-primary btn-block">Create</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($roles as $role): ?>
+            <tr>
+                <td><?php echo e($role->id); ?></td>
+                <td><?php echo e($role->display_name); ?></td>
+                <td><?php echo e($role->name); ?></td>
+                <td><?php echo e($role->level); ?></td>
+                <td>
+                    <?php foreach($role->perms as $permission): ?>
+                        <span class="label label-info"><?php echo e($permission->name); ?></span>
+                    <?php endforeach; ?>
+                </td>
+                <?php if( $role->id != 1): ?>
+                    <td width="80"><a class="btn btn-primary" href="<?php echo e(URL::route('roles.edit', $role->id)); ?>">Edit</a></td>
+
+                    <td width="80"><?php echo Form::open(['route' => ['roles.update', $role->id], 'method' => 'DELETE']); ?>
+
+                        <?php echo Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?");']); ?>
+
+                        <?php echo Form::close(); ?></td>
+                <?php endif; ?>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+   <?php echo $roles->render(); ?>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,0 +1,28 @@
+<?php $__env->startSection('content'); ?>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Dashboard</div>
+                      <?php if($user->hasRole('admin')): ?>
+
+                                Hello Admin
+
+                      <?php elseif($user->hasRole('technician')): ?>
+                               
+
+                      <?php elseif($user->hasRole('user')): ?>
+
+
+                      <?php endif; ?>
+                    <div class="panel-body">
+                        
+                          <th colspan="2"><a href="notify" class="btn btn-primary btn-block">แจ้งซ่อม</a></th>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

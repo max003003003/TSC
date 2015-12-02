@@ -1,0 +1,29 @@
+<?php $__env->startSection('content'); ?>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>name</th>           
+            <th colspan="2"><a href="<?php echo e(URL::route('department.create')); ?>" class="btn btn-primary btn-block">Create</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($department as $dep): ?>
+            <tr>
+                <td><?php echo e($dep->id); ?></td>
+                <td><?php echo e($dep->name); ?></td>
+                 
+                <td width="80"><a class="btn btn-warning" href="<?php echo e(URL::route('department.edit', $dep->id)); ?>">Edit</a></td>
+                <td width="80"><?php echo Form::open(['route' => ['department.update', $dep->id], 'method' => 'DELETE']); ?>
+
+                        <?php echo Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?");']); ?>
+
+                    <?php echo Form::close(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

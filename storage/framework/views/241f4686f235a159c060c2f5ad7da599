@@ -1,0 +1,52 @@
+<?php $__env->startSection('content'); ?>
+    <?php if(count($errors) > 0): ?>
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                <?php foreach($errors->all() as $error): ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+    
+    
+      <?php echo Form::model($notify, array('route' => array('notify.update', $notify->id), 'method' => 'PUT')); ?>
+
+     <div class="form-group">
+        <?php echo Form::hidden('status', 'wait'); ?>
+
+
+         <?php echo Form::label('user_id', 'ID'); ?>
+
+         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control']); ?>
+
+
+         <label >แผนก</label>
+       
+           <?php echo Form::select('department_id', $department, Input::old('department_id')); ?> 
+
+   
+    </div>
+    <div class="form-group">
+        <?php echo Form::label('describe', 'รายละเอียด'); ?>
+
+        <?php echo Form::textarea('describe',$notify->describe, ['class' => 'form-control']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('location', 'สถานที่'); ?>
+
+        <?php echo Form::text('location',$notify->location, ['class' => 'form-control']); ?>
+
+    </div>
+    <div class="form-group">
+        <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
+
+    </div>
+
+    <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
