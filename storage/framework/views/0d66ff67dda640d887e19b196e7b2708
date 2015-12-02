@@ -1,0 +1,50 @@
+<?php $__env->startSection('content'); ?>
+    <?php echo Form::open(['url' => '/role_permission']); ?>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>&nbsp;</th>
+            <th>Route</th>
+            <?php foreach($roles as $role): ?>
+                <th class="text-center"><?php echo e($role->display_name); ?></th>
+            <?php endforeach; ?>
+        </tr>
+        <tr>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+            <th colspan="<?php echo e(count($roles)); ?>">&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <?php foreach($permissions as $permission): ?>
+            <tr>
+                <td width="150"><?php echo e($permission->display_name); ?></td>
+                <td><small class="label label-info"><?php echo e($permission->route); ?></small></td>
+                <?php foreach($roles as $role): ?>
+                    <td width="150" class="text-center">
+                        <?php if($permission->hasRole($role->name) && $role->name == 'admin'): ?>
+                            <input type="checkbox" checked="checked" name="roles[<?php echo e($role->id); ?>][permissions][]" value="<?php echo e($permission->id); ?>" disabled="disabled">
+                            <input type="hidden" name="roles[<?php echo e($role->id); ?>][permissions][]" value="<?php echo e($permission->id); ?>">
+                        <?php elseif($permission->hasRole($role->name)): ?>
+                            <input type="checkbox" checked="checked" name="roles[<?php echo e($role->id); ?>][permissions][]" value="<?php echo e($permission->id); ?>">
+                        <?php else: ?>
+                            <input type="checkbox" name="roles[<?php echo e($role->id); ?>][permissions][]" value="<?php echo e($permission->id); ?>">
+                        <?php endif; ?>
+                    </td>
+                <?php endforeach; ?>
+            </tr>
+        <?php endforeach; ?>
+
+        </tbody>
+    </table>
+    <div class="form-group">
+        <?php echo Form::submit('Save', ['class' => 'btn btn-primary']); ?>
+
+    </div>
+    <?php echo Form::close(); ?>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

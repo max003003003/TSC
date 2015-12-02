@@ -18,7 +18,7 @@
         {!! Form::hidden('status', 'wait') !!}
 
          {!! Form::label('user_id', 'ID') !!}
-         {!! Form::text('user_id',$user->id , ['class' => 'form-control']) !!}
+         {!! Form::text('user_id',$user->id , ['class' => 'form-control','disabled' => 'disabled']) !!}
 
          <label >แผนก</label>
        

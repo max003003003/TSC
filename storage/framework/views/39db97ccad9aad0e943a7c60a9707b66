@@ -1,0 +1,38 @@
+<?php $__env->startSection('content'); ?>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th> 
+            <th>email</th>
+            <th>Department</th>
+            <th>Tel</th>         
+           
+        </tr>
+        </thead>
+        <tbody>
+        <?php if($profile): ?>
+        <?php foreach($profile as $prof): ?>
+            <tr>
+                <td><?php echo e($prof->id); ?></td>
+                <td><?php echo e($prof->name); ?></td>
+                <td><?php echo e($prof->user()->first()->email); ?>
+
+                 <?php if($prof->department !=''): ?>
+                <td> <?php echo e($prof->department->first()->name); ?> </td>
+                <?php else: ?>
+                <td> </td>
+                <?php endif; ?>
+                <td><?php echo e($prof->tel); ?></td>
+                 
+                <td width="80"><a class="btn btn-warning" href="<?php echo e(URL::route('profile.edit', $prof->id)); ?>">Edit</a></td>
+                
+            </tr>
+        <?php endforeach; ?>
+        <?php endif; ?>
+        </tbody>
+    </table>
+ 
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

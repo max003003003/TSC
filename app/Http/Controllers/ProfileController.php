@@ -55,7 +55,9 @@ class ProfileController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $profile=Profile::find($id);
+        return view("profile.show",["profile"=>$profile]);
     }
 
     /**

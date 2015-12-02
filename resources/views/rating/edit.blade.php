@@ -35,8 +35,8 @@
       <table class="table">
        <thead>
         <tr>
-            <th>หัวข้อเรื่อง</th>
-            <th>ระดับความพึงพอใจ</th>         
+            <th >หัวข้อเรื่อง</th>
+            <th >ระดับความพึงพอใจ</th>         
             
         </tr>
         </thead>
@@ -44,13 +44,12 @@
 
             {!! Form::model($rate, array('route' => array('rating.update', $rate->id), 'method' => 'PUT')) !!}
             <tr>
-                <td>
+                <td >
 
                  </td>
 
      
              
-                
                 <td>ต้องปรับปรุง</td>
                 <td> ไม่พอใจ</td>
                    <td>ปานกลาง</td>
@@ -84,8 +83,9 @@
            <tr>
                 <td>5.การดำเนินการใช้เวลาเหมาะสม</td>   
                 
-                 <td> {!! Form::radio('5',  'เหมาะสม') !!}เหมาะสม</td>
+                 
                  <td> {!! Form::radio('5', 'ไม่เหมาะสม') !!}ไม่เหมาะสม</td>
+                 <td> {!! Form::radio('5',  'เหมาะสม') !!}เหมาะสม</td>
                  <td></td>
                  <td></td>
                  <td></td>

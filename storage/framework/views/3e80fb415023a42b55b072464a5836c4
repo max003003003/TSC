@@ -1,0 +1,59 @@
+<?php $__env->startSection('content'); ?>
+
+    <?php if(count($errors) > 0): ?>
+        <div class="alert alert-danger">
+            <strong>Whoops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                <?php foreach($errors->all() as $error): ?>
+                    <li><?php echo e($error); ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php endif; ?>
+
+    <?php echo Form::model($user, ['route' => ['users.update', $user->id], 'method' => 'PATCH']); ?>
+
+
+    <div class="form-group">
+        <?php echo Form::label('email', 'Email'); ?>
+
+        <?php echo Form::text('email', null, ['class' => 'form-control']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('password', 'Password'); ?>
+
+        <?php echo Form::password('password', ['class' => 'form-control']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('password_confirmation', 'Password confirmation'); ?>
+
+        <?php echo Form::password('password_confirmation', ['class' => 'form-control']); ?>
+
+    </div>
+
+    <div class="form-group">
+        Roles
+        <?php foreach($roles as $role): ?>
+            <?php $checked = in_array($role->id,array( $userRoles->lists('id'))); ?>
+                <div class="checkbox">
+                    <label>
+                        <?php echo Form::checkbox('role[]', $role->id, $checked); ?> <?php echo e($role->display_name); ?>
+
+                    </label>
+                </div>
+        <?php endforeach; ?>
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
+
+    </div>
+
+    <?php echo Form::close(); ?>
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

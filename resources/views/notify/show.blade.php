@@ -22,7 +22,12 @@
      <ol>
             @foreach( $notify->tech()->get()  as $t)
             <br>                
-               <li>             {{ $t->profile()->first()->name   }}  </li>
+        
+                <li>
+                 <a href="/../profile/{{ $t->profile()->first()->id  }}">    
+                       {{ $t->profile()->first()->name }}
+                  </a></li>
+
             @endforeach
             </ol>
      @endif

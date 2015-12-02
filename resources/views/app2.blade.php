@@ -26,12 +26,12 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="{{ url('/') }}">Technical Service Center</a>
+				<!-- <a class="navbar-brand" href="{{ url('/') }}">Technical Service Center</a> -->
 			</div>
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">					 
                     @if(Auth::check())
-                    <li><a href="{{ url('/home') }}">Menu</a></li>
+                    <!-- <li><a href="{{ url('/home') }}">Menu</a></li> -->
                    
 				    <ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())

@@ -17,11 +17,15 @@
         @if($profile)
         @foreach($profile as $prof)
             <tr>
-                <td>{{ $prof->id }}</td>
+                
+                <td>
+                 <a href="/../profile/{{ $prof->id }}">    
+                       {{ $prof->id }}
+                  </a></td>
                 <td>{{ $prof->name }}</td>
                 <td>{{ $prof->user()->first()->email}}
                  @if($prof->department !='')
-                <td> {{$prof->department->first()->name }} </td>
+                <td> {{$prof->department()->first()->name }} </td>
                 @else
                 <td> </td>
                 @endif

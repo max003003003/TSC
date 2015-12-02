@@ -1,0 +1,33 @@
+<?php $__env->startSection('content'); ?>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Display Name</th>
+            <th>Name</th>
+            <th colspan="2"><a href="<?php echo e(URL::route('permissions.create')); ?>" class="btn btn-primary btn-block">Create</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($permissions as $permission): ?>
+            <tr>
+                <td><?php echo e($permission->id); ?></td>
+                <td><?php echo e($permission->display_name); ?></td>
+                <td><?php echo e($permission->name); ?></td>
+                <td width="80"><a class="btn btn-primary" href="<?php echo e(URL::route('permissions.edit', $permission->id)); ?>">Edit</a></td>
+                <td width="80"><?php echo Form::open(['route' => ['permissions.update', $permission->id], 'method' => 'DELETE']); ?>
+
+                    <?php echo Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?");']); ?>
+
+                    <?php echo Form::close(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+
+    <?php echo $permissions->render(); ?>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
