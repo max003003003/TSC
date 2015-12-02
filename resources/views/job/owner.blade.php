@@ -22,49 +22,31 @@
 
 <body>
       <table class="table">
-      
        <thead>
-     
-
-         {!! Form::label('notify', 'ID') !!}
-         {!! Form::text('notify_id',null, ['class' => 'form-control']) !!}
-
-     
-     <div class="form-group">
-        {!! Form::submit('ค้นหา', ['class' => 'btn btn-primary']) !!}
-    </div>
-
-    {!! Form::close() !!}
-
-
-
         <tr>
             <th>#</th>
             <th>Dscribe</th>
             <th>Location</th>
             <th>Status</th>
-            <th>Time</th>
             
         </tr>
         </thead>
      <tbody>
      @if($notifies)
-        	@foreach($notifies as $notify)
-                    <tr>
-                        <td>
-                         <a href="/../notify/{{ $notify->id }}">    
-                               {{ $notify->id }}
-                          </a></td>
-                        <td>{{ $notify->describe }}</td>
-                        <td>{{ $notify->location }}</td>
-                        <td>{{ $notify->status }}</td>
-                        <td>{{ $notify->created_at->timezone(Auth::user()->timezone) }}</td>
-                    </tr>
-          @endforeach
-     @endif
+		@foreach($notifies as $notify)
+	            <tr>
+	                <td>
+	                 <a href="/../notify/{{ $notify->id }}">    
+	                       {{ $notify->id }}
+	                  </a></td>
+	                <td>{{ $notify->describe }}</td>
+	                <td>{{ $notify->location }}</td>
+	                <td>{{ $notify->status }}</td>                         
+	            </tr>
+	        @endforeach
+      @endif
      </tbody>
      </table>
-     {!! $notifies->render() !!}
 	 
 	<!-- Scripts -->
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>

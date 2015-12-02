@@ -12,9 +12,16 @@ class Notify extends Model {
     {
     	return $this->hasOne("App\Rate");
     }
-  public function user()
+  
+  	public function department()
   	{
-  		return $this->hasOne("App\User");
+
+		return $this->belongsToMany('App\Department');
+
+  	}
+  	public function tech()
+  	{
+  		 return $this->belongsToMany("App\User");
   	}
 
 

@@ -12,7 +12,7 @@
             </ul>
         </div>
     @endif
-
+  
     {!! Form::model($profile, ['route' => ['profile.update', $profile->id], 'method' => 'PATCH']) !!}
 
     <div class="form-group">
@@ -30,4 +30,5 @@
     </div>
 
     {!! Form::close() !!}
+
 @stop

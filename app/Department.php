@@ -11,4 +11,8 @@ class Department extends Model
     {
     	return $this->belongsTO("App\Profile");
     }
+    public function notify()
+    {
+    return $this->belongsToMany('App\Notify');
+	}
 }

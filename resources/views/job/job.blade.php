@@ -32,7 +32,7 @@
         </tr>
         </thead>
      <tbody>
-     @if($notifies)
+  @if($notifies)
 	@foreach($notifies as $notify)
             <tr>
                 <td>
@@ -44,12 +44,19 @@
                 <td>{{ $notify->status }}</td>                
                 {!! Form::model($notify, array('route' => array('job.update', $notify->id), 'method' => 'PUT')) !!}
                 {!! Form::hidden('status', 'operating') !!}
-                {!! Form::hidden('tech_id', $user->profile()->first()->department_id) !!}
+                {!! Form::hidden('tech_id', $user->id) !!}
+                {!! Form::hidden('o',2) !!}
                 <td width="150">
                <div class="form-group">
-              {!! Form::submit('รับงานซ่อมนี้', ['class' => 'btn btn-primary']) !!}
-              {!! Form::close() !!}
-                  </div>
+               {!! Form::submit('รับงานซ่อมนี้', ['class' => 'btn btn-primary']) !!}
+               {!! Form::close() !!}
+            
+
+              @if($user->hasRole('captain'))
+                      <th colspan="2"><a href="/../job/{{$notify->id}}/edit"  class="btn btn-primary btn-block">มอบหมายงาน</a></th>
+              @endif
+                      
+                      </div>
                     
                     
                 </td>

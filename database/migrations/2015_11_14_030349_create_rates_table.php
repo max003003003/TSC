@@ -18,8 +18,12 @@ class CreateRatesTable extends Migration
             $table->integer('b')->nullable();
             $table->integer('c')->nullable();
             $table->integer('d')->nullable();
-            $table->integer('e')->nullable();            
-            $table->integer('comment')->nullable();
+            $table->string('e')->nullable();            
+            $table->string('comment')->nullable();
+            
+            $table->integer('notify_id')->foreign('notify_id')->references('id')->on('notifies')
+            ->onUpdate('cascade')->onDelete('cascade'); 
+
             $table->timestamps();
         });
     }

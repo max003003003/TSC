@@ -13,28 +13,43 @@
     @endif
     
     
-      {!! Form::model($notify, array('route' => array('notify.update', $notify->id), 'method' => 'PUT')) !!}
+      {!! Form::model($notify, array('route' => array('job.update', $notify->id), 'method' => 'PUT')) !!}
      <div class="form-group">
         {!! Form::hidden('status', 'waite') !!}
 
          {!! Form::label('user_id', 'ID') !!}
-         {!! Form::text('user_id',$user->id , ['class' => 'form-control']) !!}
+         {!! Form::text('user_id',$user->id , ['class' => 'form-control','disabled' => 'disabled']) !!}
 
          <label >แผนก</label>
        
-           {!! Form::select('department_id', $department, Input::old('department_id'))  !!} 
+           {!! Form::text('department_id', $notify->department()->first()->name, ['class' => 'form-control','disabled' => 'disabled'] )  !!} 
 
    
     </div>
     <div class="form-group">
         {!! Form::label('describe', 'รายละเอียด') !!}
-        {!! Form::textarea('describe',$notify->describe, ['class' => 'form-control']) !!}
+        {!! Form::textarea('describe',$notify->describe, ['class' => 'form-control','disabled' => 'disabled']) !!}
     </div>
 
     <div class="form-group">
         {!! Form::label('location', 'สถานที่') !!}
-        {!! Form::text('location',$notify->location, ['class' => 'form-control']) !!}
+        {!! Form::text('location',$notify->location, ['class' => 'form-control','disabled' => 'disabled']) !!}
     </div>
+    <div>
+        
+        <label >มอบหมายงาน</label>
+         @foreach($tech as $t)         
+
+            <?php $checked =  $t->id ; ?>
+                <div class="checkbox">
+                    <label>
+                        {!! Form::checkbox('tech[]', $t->user_id, $checked) !!} {{ $t->name }}
+                    </label>
+                </div>
+        @endforeach
+    </div>
+
+
     <div class="form-group">
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
     </div>

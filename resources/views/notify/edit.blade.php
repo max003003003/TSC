@@ -15,7 +15,7 @@
     
       {!! Form::model($notify, array('route' => array('notify.update', $notify->id), 'method' => 'PUT')) !!}
      <div class="form-group">
-        {!! Form::hidden('status', 'waite') !!}
+        {!! Form::hidden('status', 'wait') !!}
 
          {!! Form::label('user_id', 'ID') !!}
          {!! Form::text('user_id',$user->id , ['class' => 'form-control']) !!}

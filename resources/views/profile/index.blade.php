@@ -14,6 +14,7 @@
         </tr>
         </thead>
         <tbody>
+        @if($profile)
         @foreach($profile as $prof)
             <tr>
                 <td>{{ $prof->id }}</td>
@@ -30,6 +31,7 @@
                 
             </tr>
         @endforeach
+        @endif
         </tbody>
     </table>
  

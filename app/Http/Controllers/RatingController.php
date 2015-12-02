@@ -119,11 +119,13 @@ class RatingController extends Controller
         }
 
         $rate=Rate::find($id)->first();
+
         $rate->a=$request->input('1');
         $rate->b=$request->input('2');
         $rate->c=$request->input('3');
         $rate->d=$request->input('4');
         $rate->e=$request->input('5');
+
         $rate->comment=$request->input('comment');
         $rate->save();
 

@@ -61,11 +61,12 @@ class NotifyController extends Controller
     {
         
         $this->validate($request, array('user_id'=>'required','describe' => 'required', 'department_id' => 'required', 'location' => 'required'));
-       
-       
-
-       $notify = $this->notifies->create($request->all());
+        $notify = $this->notifies->create($request->all());
+        $department=Department::find($request->input('department_id'));
+        $notify->department()->save($department);
        $rating= \App\Rate::create();
+       $rating->notify_id=$notify->id;
+       $rating->save();
        $notify->rate_id=$rating->id;
        $notify->save();
 
@@ -84,7 +85,7 @@ class NotifyController extends Controller
     public function show($id)
     {
         $notify=$this->notifies->find($id);    
-        return \Response::json($notify);
+        return View('notify/show',['notify'=>$notify ]);
 
     }
 

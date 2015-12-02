@@ -36,7 +36,11 @@
                         @elseif($user->hasRole('technician'))
                           
                             <th colspan="2"><a href="job/" class="btn btn-primary btn-block">งานซ่อมรอดำเนินการ</a></th>
-                             <th colspan="2"><a href="notify/create" class="btn btn-primary btn-block">งานซ่อมกำลังดำเนินการ</a></th>
+                            @if($user->hasRole('captain'))
+                               <th colspan="2"><a href="job" class="btn btn-primary btn-block">กำหนดงานให้ผู้อื่น</a></th>
+
+                            @endif
+                             <th colspan="2"><a href="owner" class="btn btn-primary btn-block">งานซ่อมกำลังดำเนินการ</a></th>
                               <th colspan="2"><a href="history/" class="btn btn-primary btn-block">ประวัติการแจ้งซ่อม</a></th>
 
 

@@ -27,6 +27,12 @@ class EntrustTableSeeder extends Seeder {
 		$editor->level = 5;
 		$editor->save();
 
+		$captain = new Role(); // 2
+		$captain->name = 'captain';
+		$captain->display_name = "captain";
+		$captain->level = 6;
+		$captain->save();
+
 		$userRole = new Role(); // 3
 		$userRole->name = 'user';
 		$userRole->display_name = "User";
@@ -42,6 +48,11 @@ class EntrustTableSeeder extends Seeder {
 
 		$user2 = User::where('email', '=', 'user@user.com')->first();
 		$user2->attachRole($userRole);
+
+		$user3 = User::where('email', '=', 'captain@captain.com')->first();
+		$user3->attachRole($captain);
+		$user3->attachRole($editor);
+
 
 		$manageRoles = new Permission();
 		$manageRoles->name = 'manage_roles';
@@ -133,6 +144,10 @@ class EntrustTableSeeder extends Seeder {
 		//$admin->perms()->sync([$manageRoles->id, $manageUsers->id, $managePerms->id]); Eloquent basic
 
 		$editor->attachPermissions([$managePerms, $createPerms, $updatePerms, $destroyPerms]);
+		
+		
+
+
 	}
 
 }
