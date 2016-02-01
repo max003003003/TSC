@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Laravel</title>
+  <title>ระบบแจ้งซ่อม</title>
   <link href="{{ asset('/css/app.css') }}" rel="stylesheet">
   <!-- Fonts -->
   <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -15,54 +15,120 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+  <style>
+      /*body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        color: #B0BEC5;
+        display: table;
+        font-weight: 100;
+        font-family: 'Lato';
+      }*/
+
+      /*.container {
+        background: white;
+      }
+*/
+      .content {
+        background: white;
+        
+      }
+
+      .title {
+        position: absolute;
+        top: 200px;
+        font-size: 133px;
+        margin-bottom: 50px;
+
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        color: #B0BEC5;
+        display: table;
+        font-weight: 100;
+        font-family: 'Lato';
+        overflow: hidden;
+        z-index: -1;
+      
+    </style>
 </head>
-
-
-
-
+<body>
+  <nav class="navbar navbar-default">
     <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Menu</div>
-                     @if (Auth::guest())
-                         <li><a href="{{ url('/auth/login') }}">Login</a></li>
-                     @endif    
-                      @if(Auth::check())
-                        @if($user->hasRole('admin'))
-                                Hello Admin
-                          <th colspan="2"><a href="dashboard" class="btn btn-primary btn-block">ผู้ดูแลระบบ</a></th>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle Navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="{{ url('/') }}">Technical Service Center</a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">          
+                    @if(Auth::check())
+                   
+                      @if(Auth::user()->hasRole('admin'))
+                        <li><a href="{{ URL::route('department.index') }}">Department</a>
+                        <li><a href="{{ URL::route('showrate.index') }}">ผลการประเมิน</a>
+                        <li><a href="{{ URL::route('location.index') }}">Location</a>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles/Permissions</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/role_permission') }}">Panel</a></li>
+                                <li><a href="{{ URL::route('roles.index') }}">Roles</a></li>
+                                <li><a href="{{ URL::route('permissions.index') }}">Permissions</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ URL::route('department.index') }}">Department</a></li>
+                        <li><a href="{{ URL::route('users.index') }}">Users</a></li>
+                        <li><a href="{{ URL::route('profile.index') }}">Profile</a></li>
+                         @elseif(Auth::user()->hasRole('technician'))                            
 
-                        @elseif($user->hasRole('technician'))
-                          
-                            <th colspan="2"><a href="job/" class="btn btn-primary btn-block">งานซ่อมรอดำเนินการ</a></th>
-                            @if($user->hasRole('captain'))
-                               <th colspan="2"><a href="job" class="btn btn-primary btn-block">กำหนดงานให้ผู้อื่น</a></th>
-
+                           @if(Auth::user()->hasRole('captain'))
+                              <li><a href="{{ URL::route('jobdep.index') }}">งานในแผนก</a>
+                            @else
+                              <li><a href="{{ URL::route('job.index') }}">งานแจ้งซ่อม</a>
+                              <li><a href="editJobStatus">จัดการใบแจ้งซ่อม</a>
+                              <li><a href="{{ URL::route('showrate.index') }}">จัดการใบแจ้งซ่อม</a>                 
                             @endif
-                             <th colspan="2"><a href="owner" class="btn btn-primary btn-block">งานซ่อมกำลังดำเนินการ</a></th>
-                              <th colspan="2"><a href="history/" class="btn btn-primary btn-block">ประวัติการแจ้งซ่อม</a></th>
+                        @elseif(Auth::user()->hasRole('user'))
+                           <li><a href="{{ URL::route('notify.create') }}">สร้างใบแจ้งซ่อมใหม่</a>
+                            <li><a href="{{ URL::route('notify.index') }}">งานแจ้งซ่อมคงค้าง</a> 
+                            <li><a href="{{ URL::route('rating.index') }}">งานซ่อมรอการประเมิน</a> 
+                         @endif
+                          <li><a href="{{ URL::route('history.index') }}">History</a></li>
+         @endif
+        </ul>
 
-
-
-                        @elseif($user->hasRole('user'))
-                          <div class="panel-body">                        
-                          <th colspan="2"><a href="notify/create" class="btn btn-primary btn-block">สร้างรายการแจ้งซ่อมใหม่</a></th>
-                                                
-                          <th colspan="2"><a href="notify/" class="btn btn-primary btn-block">รายการแจ้งซ่อมคงค้าง</a></th>
-                          <th colspan="2"><a href="rating/" class="btn btn-primary btn-block">รายการแจ้งซ่อมรอการประเมิน</a></th>
-                            <th colspan="2"><a href="history/" class="btn btn-primary btn-block">ประวัติการแจ้งซ่อม</a></th>
-                             
-                     @endif
-                     @endif
-                          <th colspan="2"><a href="auth/logout" class="btn btn-primary btn-block">Logout</a></th>
-
-                    </div>
-                </div>
-            </div>
+        <ul class="nav navbar-nav navbar-right">
+          @if (Auth::guest())
+           <!--  <li><a href="{{ url('/auth/login') }}">Login</a></li> -->
+            <a href="/auth/login" class="btn btn-success" role="button">login</a>
+          @else
+            <a href="/auth/logout" class="btn btn-danger" role="button">logout</a>
+         
         </div>
+            
+            
+              </ul>
+            </li>
+          @endif
+        </ul>
+      </div>
     </div>
-    <!-- Scripts -->
+  </nav>
+  <div class="title" >Technical Service Center</div>
+  
+    <div class="content" >
+        @include('flash::message')
+        @yield('content')
+    </div>
+    
   <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
-
+</body>
+</html>

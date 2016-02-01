@@ -1,4 +1,4 @@
-@extends('app2')
+@extends('home')
 
 @section('content')
     @if (count($errors) > 0)

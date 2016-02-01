@@ -1,5 +1,5 @@
-@extends('app2')
-
+@extends('home')
+<!-- app2 -->
 @section('content')
     @if (count($errors) > 0)
         <div class="alert alert-danger">

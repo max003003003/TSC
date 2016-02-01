@@ -8,6 +8,10 @@ use App\Repositories\RoleRepository as Role;
 use Laracasts\Flash\Flash;
 use App\Department;
 use App\Profile;
+use Mail;
+// use App\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 class UsersController extends Controller {
 
 	/**
@@ -93,7 +97,13 @@ class UsersController extends Controller {
 	 * @param UpdateUserRequest $request
 	 */
 	public function update(UpdateUserRequest $request, $id)
-	{
+	{ 
+
+
+		 
+
+
+
 		$user = $this->user->find($id);
 
 		$user->email = $request->get('email');
@@ -109,6 +119,9 @@ class UsersController extends Controller {
 		}
 		else
 		{
+			 return redirect('users/'.$id.'/edit/')
+                        ->withErrors("กรุณากำหนด Role")
+                        ->withInput();
 			$user->roles()->sync([]);
 		}
 
@@ -132,5 +145,15 @@ class UsersController extends Controller {
 
 		return redirect('/users');
 	}
+	public function sendEmailReminder(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        Mail::send('emails.reminder', ['user' => $user], function ($m) use ($user) {
+            $m->from('hello@app.com', 'Your Application');
+
+            $m->to($user->email, $user->name)->subject('Your Reminder!');
+        });
+    }
 
 }

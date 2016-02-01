@@ -76,6 +76,7 @@ trait ResetsPasswords
      */
     public function postReset(Request $request)
     {
+        
         $this->validate($request, [
             'token' => 'required',
             'email' => 'required|email',

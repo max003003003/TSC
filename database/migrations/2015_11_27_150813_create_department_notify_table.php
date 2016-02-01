@@ -13,7 +13,7 @@ class CreateDepartmentNotifyTable extends Migration
     public function up()
     {
         Schema::create('department_notify', function (Blueprint $table) {
-            $table->integer('notify_id')->unsigned();
+             $table->integer('notify_id')->unsigned();
              $table->integer('department_id')->unsigned();
 
             $table->foreign('notify_id')->references('id')->on('notifies')
@@ -25,6 +25,7 @@ class CreateDepartmentNotifyTable extends Migration
             
             $table->primary(['notify_id', 'department_id']);
         });
+       
         
     }
 

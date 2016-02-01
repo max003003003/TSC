@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
+	<title>ระบบแจ้งซ่อม</title>
 	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -31,24 +31,33 @@
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav">					 
                     @if(Auth::check())
-                    <li><a href="{{ url('/dashboard') }}">Dashboard</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles/Permissions</a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="{{ url('/role_permission') }}">Panel</a></li>
-                            <li><a href="{{ URL::route('roles.index') }}">Roles</a></li>
-                            <li><a href="{{ URL::route('permissions.index') }}">Permissions</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="{{ URL::route('department.index') }}">Department</a></li>
-                    <li><a href="{{ URL::route('users.index') }}">Users</a></li>
-                    <li><a href="{{ URL::route('profile.index') }}">Profile</a></li>
+                    <!-- <li><a href="{{ url('/dashboard') }}">Dashboard</a></li> -->
+                                         
+                      @if(Auth::user()->hasRole('admin'))
+                        <li><a href="{{ URL::route('department.index') }}">Department</a>
+                        <li><a href="{{ URL::route('showrate.index') }}">ผลการประเมิน</a>
+                        <li><a href="{{ URL::route('location.index') }}">Location</a>
+                         <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Roles/Permissions</a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a href="{{ url('/role_permission') }}">Panel</a></li>
+                                <li><a href="{{ URL::route('roles.index') }}">Roles</a></li>
+                                <li><a href="{{ URL::route('permissions.index') }}">Permissions</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="{{ URL::route('department.index') }}">Department</a></li>
+                        <li><a href="{{ URL::route('users.index') }}">Users</a></li>
+                        <li><a href="{{ URL::route('profile.index') }}">Profile</a></li>
+
+                        @endif
+                         
+
                     @endif
 				</ul>
 
 				<ul class="nav navbar-nav navbar-right">
 					@if (Auth::guest())
-						<li><a href="{{ url('/auth/login') }}">Login</a></li>
+						<!-- <li><a href="{{ url('/auth/login') }}">Login</a></li> -->
 						
 					@else
 						<li class="dropdown">

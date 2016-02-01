@@ -1,4 +1,5 @@
-@extends('app2')
+
+@extends('home')
 
 @section('content')
     @if (count($errors) > 0)
@@ -17,8 +18,8 @@
      <div class="form-group">
         {!! Form::hidden('status', 'wait') !!}
 
-         {!! Form::label('user_id', 'ID') !!}
-         {!! Form::text('user_id',$user->id , ['class' => 'form-control','disabled' => 'disabled']) !!}
+         {!! Form::label('user_id', 'หมายเลขผู้ใช้') !!}
+         {!! Form::text('user_id',$user->id , ['class' => 'form-control','readonly'=>'readonly']) !!}
 
         <label >แผนก</label>
           {!! Form::select('department_id', $department) !!} 
@@ -28,13 +29,16 @@
         {!! Form::textarea('describe',null, ['class' => 'form-control']) !!}
     </div>
 
-    <div class="form-group">
-        {!! Form::label('location', 'สถานที่') !!}
-        {!! Form::text('location',null, ['class' => 'form-control']) !!}
+      <div class="form-group">
+            <label >สถานที่</label>
+          {!! Form::select('location', $location) !!} 
+         
     </div>
     <div class="form-group">
-        {!! Form::submit('Create', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('สร้างใบแจ้งซ่อม', ['class' => 'btn btn-primary']) !!}
+
     </div>
 
     {!! Form::close() !!}
+    
 @endsection

@@ -1,0 +1,48 @@
+/*!
+ * This file foe set Background to allow all size of window
+*/
+
+body
+{
+  background : url('background.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+div.box
+{
+    width: 300px;
+    padding: 25px;
+    border: 25px ;
+    margin: 25px;
+}
+
+h1
+{
+  font-size: 200;
+}
+
+div.textsam{
+    padding:18px;
+    margin-right:10px;
+    color : #ffffff;
+
+
+}
+.newnotify{
+  background: url("/img/icon.png");
+   background-size: 50px 100px;
+}
+.btn-glyphicon {
+    padding:18px;
+    background:#ffffff;
+    margin-right:10px;
+    color : #ffffff;
+}
+.icon-btn {
+    padding: 1px 15px 30px 20px;
+    border-radius:5px;
+    color : #ffffff;
+}

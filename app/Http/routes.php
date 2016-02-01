@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,25 +9,21 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
-Route::get('sendemail', function () {
-        
-    $data = array(
-        'name' => "Learning Laravel",
-    );
-
-    Mail::send('emails.welcome', $data, function ($message) {
-
-        $message->from('tscwebmaster0@gmail.com', 'Learning Laravel');
-
-        $message->to('max003003003@gmail.com')->subject('Learning Laravel test email');
-
-    });
-  
-    return "Your email has been sent successfully";
-
+use \App\Email\mail;
+Route::get('info', function () {
+  phpinfo();
 });
+
+/*
+Route::get('sendemail', function () {  
+  $mail = new mail();
+  return $mail->sendEmail('max003003003@gmail.com','vorabhol');
+});
+*/
+
 Route::get('/', 'HomeController@index');
+
+ 
 
 
 Route::get('/dashboard', [
@@ -37,18 +32,30 @@ Route::get('/dashboard', [
 	'middleware' => 'auth'
 ]); 
 
+Route::post('his',function($id)
+{
+   return "helel";
+ 
+});
+ Route::post('/his', ['uses' => 'HistoryController@sss', 'as' => 'history.sss']);
 
-Route::group(['middleware' => ['auth', 'authorize']], function(){
-    Route::get('owner','JobController@owner');
+Route::group(['middleware' => ['auth', 'authorize']], function(){   
+     Route::resource('location','LocationController');
+    Route::get('owner','JobController@owner'); 
+    Route::get('editJobStatus','JobController@editStatusJob');    
     Route::resource('job','JobController');
     Route::resource('rating','RatingController');
+    Route::resource('showrate','RatingController@showrate');
     Route::resource('job','JobController');
+    Route::resource('jobdep','NotifyController@showdep');
     Route::resource('history','HistoryController');
 	Route::resource('users', 'UsersController');
 	Route::resource('profile', 'ProfileController');
 	Route::resource('department','DepartmentController');
 	Route::resource('roles', 'RolesController');
-	Route::resource('notify','NotifyController');	
+	Route::resource('notify','NotifyController');
+  Route::resource('search', 'SearchController');
+  Route::resource('queries', 'QueryController');
 	Route::resource('permissions', 'PermissionsController');
 	Route::get('/role_permission', 'RolesPermissionsController@index');
 	Route::post('/role_permission', 'RolesPermissionsController@store');

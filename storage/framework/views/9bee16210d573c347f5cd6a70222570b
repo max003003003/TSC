@@ -1,3 +1,4 @@
+<!-- app2 -->
 <?php $__env->startSection('content'); ?>
     <?php if(count($errors) > 0): ?>
         <div class="alert alert-danger">
@@ -10,7 +11,7 @@
         </div>
     <?php endif; ?>
     
-    
+    <?php if($user->hasRole('user') ): ?>
       <?php echo Form::model($notify, array('route' => array('notify.update', $notify->id), 'method' => 'PUT')); ?>
 
      <div class="form-group">
@@ -19,12 +20,10 @@
 
          <?php echo Form::label('user_id', 'ID'); ?>
 
-         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control','disabled' => 'disabled']); ?>
+         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control','readonly' => 'readonly']); ?>
 
-
-         <label >แผนก</label>
-       
-           <?php echo Form::select('department_id', $department, Input::old('department_id')); ?> 
+         <label >แผนก</label>       
+        <?php echo Form::select('department_id', $department, Input::old('department_id')); ?> 
 
    
     </div>
@@ -38,8 +37,7 @@
     <div class="form-group">
         <?php echo Form::label('location', 'สถานที่'); ?>
 
-        <?php echo Form::text('location',$notify->location, ['class' => 'form-control']); ?>
-
+         <?php echo Form::select('location', $location, Input::old('location')); ?> 
     </div>
     <div class="form-group">
         <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
@@ -48,5 +46,71 @@
 
     <?php echo Form::close(); ?>
 
+    
+    <?php elseif($user->hasRole('technician')||$user->hasRole('admin')): ?>
+         <?php echo Form::model($notify, array('route' => array('notify.update', $notify->id), 'method' => 'PUT')); ?>
+
+      <div class="form-group">
+        <?php echo Form::hidden('status', 'wait'); ?>
+
+
+         <?php echo Form::label('user_id', 'ID'); ?>
+
+         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control','readonly' => 'readonly']); ?>
+
+         <?php if($notify->status=="operating"&&$user->hasRole("admin")): ?>
+                   <label >แผนก</label>
+       
+           <?php echo Form::select('department_id', $department, Input::old('department_id')); ?> 
+
+         <?php else: ?>
+         <label >แผนก</label>       
+        
+         <?php echo Form::text('department_id',$notify->department()->first()->name, ['class' => 'form-control','readonly' => 'readonly']); ?>
+
+
+
+         <?php endif; ?>
+
+
+
+
+
+   
+    </div>
+    <div class="form-group">
+        <?php echo Form::label('describe', 'รายละเอียด'); ?>
+
+        <?php echo Form::textarea('describe',$notify->describe, ['class' => 'form-control','readonly' => 'readonly']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('location', 'สถานที่'); ?>
+
+        <?php echo Form::text('location',$notify->location, ['class' => 'form-control','readonly' => 'readonly']); ?>
+
+    </div>
+     
+    <div class="form-group">
+        <?php echo Form::label('comment', 'หมายเหตุ'); ?>
+
+        <?php echo Form::textarea('comment',$notify->comment, ['class' => 'form-control','readonly'=>'readonly']); ?>
+
+    </div>
+    
+
+
+
+
+     
+    <div class="form-group">
+        <?php echo Form::submit('Update', ['class' => 'btn btn-primary','readonly' => 'readonly']); ?>
+
+    </div>
+
+    <?php echo Form::close(); ?>
+
+    <?php endif; ?>
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('app2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

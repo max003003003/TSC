@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en-US">
 <head>
     <meta charset="utf-8">
@@ -7,7 +8,7 @@
 <h2>Learning Laravel!</h2>
 
 <div>
-    Welcome to {!! $name !!} website!
+    Welcome to   website!
 </div>
 
 </body>

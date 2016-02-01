@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
- use App\Repositories\Criteria\User\UsersWithRoles;
+use App\Repositories\Criteria\User\UsersWithRoles;
 use Illuminate\Contracts\Auth\Guard;
 use App\Profile;
 use App\Repositories\UserRepository as User; 
@@ -14,13 +13,15 @@ use Laracasts\Flash\Flash;
 use Gate;
 
 
+
 class ProfileController extends Controller
 {
       
-    private  $user; 
+    private  $user,$auth; 
      
-    public function __construct(User $user )
-    {
+    public function __construct(User $user,Guard $auth )
+    {    
+        $this->auth=$auth;
         $this->user = $user;
          
     }  
@@ -68,9 +69,13 @@ class ProfileController extends Controller
      */
     public function edit($id)
     {
-        $profile=Profile::find($id)->first();
-      
-        return View("profile.edit",["profile"=>$profile]);
+        
+        $profile=Profile::find($id);
+         
+        $department=\App\Department::lists('name','id')->all(); 
+
+        return view("profile/edit",['user'=>
+        $this->auth->user(),"profile"=>$profile,'department'=>$department]);
      }
 
     /**
@@ -82,7 +87,12 @@ class ProfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $profile=Profile::find($id);
+        $profile->name=$request->input('name');
+        $profile->tel=$request->input('tel');
+        $profile->department_id=$request->input('department_id');
+        $profile->save();
+       return redirect('/profile');
     }
 
     /**

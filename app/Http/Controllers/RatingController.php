@@ -35,8 +35,9 @@ class RatingController extends Controller
       }
 
     public function index()
-    {
-        $notifies=\App\Notify::where('status','=','rating')                   
+    {   
+        $notifies=\App\Notify::where('status','=','rating')
+                    ->where('user_id','=',$this->auth->user()->id)                   
                     ->get();
 
 
@@ -47,7 +48,31 @@ class RatingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function showrate()
+    {  
     
+       if($this->auth->user()->hasRole('admin')){
+        $notifies=\App\Notify::where('status','=','finished')                   
+                    ->get();
+        }else{
+            if($this->auth->user()->hasRole('captain')){
+                $notifies=\App\Notify::where('status','=','finished')                   
+                    ->where('department_id','=',$this->auth->user()->profile()->first()->department_id)
+                    ->get();
+            }
+            else{
+                //$noyify_id=DB::select('select notify_id from notify_user where ? = ? and ? = ?')
+                $notifies=$this->auth->user()->notify()
+                ->where('status','=','finished')
+                ->get();
+
+               // $notifies=\App\Notify::find()
+                    
+            }
+        }
+
+        return view('rating/show',['notifies'=>$notifies]);
+   }
 
 
 
@@ -77,7 +102,13 @@ class RatingController extends Controller
     public function show($id)
     {
         //
-    }
+        $rate=\App\Rate::find($id);
+        
+
+        return view('rating/showrate',['rate'=>$rate]);
+
+
+            }
 
     /**
      * Show the form for editing the specified resource.
@@ -88,8 +119,7 @@ class RatingController extends Controller
     public function edit($id)
     {
 
-         $rate=Rate::find($id);
-         
+         $rate=Rate::find($id);         
          return view('rating/edit',['rate'=>$rate]);
     }
 
@@ -102,8 +132,6 @@ class RatingController extends Controller
      */
     public function update(Request $request, $id)
     {
- 
-
             $validator = Validator::make($request->all(), [
             '1' => 'required',
             '2' => 'required',
@@ -118,20 +146,17 @@ class RatingController extends Controller
                         ->withInput();
         }
 
-        $rate=Rate::find($id)->first();
-
+        $rate=Rate::find($id);
         $rate->a=$request->input('1');
         $rate->b=$request->input('2');
         $rate->c=$request->input('3');
         $rate->d=$request->input('4');
         $rate->e=$request->input('5');
-
         $rate->comment=$request->input('comment');
         $rate->save();
 
          $notifies=\App\Notify::where('rate_id','=',$id)                   
                     ->first();
-
          $notifies->status='finished';
          $notifies->save();
           return redirect('/');

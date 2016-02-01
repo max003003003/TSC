@@ -17,9 +17,9 @@
         <?php echo Form::hidden('status', 'wait'); ?>
 
 
-         <?php echo Form::label('user_id', 'ID'); ?>
+         <?php echo Form::label('user_id', 'หมายเลขผู้ใช้'); ?>
 
-         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control','disabled' => 'disabled']); ?>
+         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control','readonly'=>'readonly']); ?>
 
 
         <label >แผนก</label>
@@ -32,18 +32,19 @@
 
     </div>
 
-    <div class="form-group">
-        <?php echo Form::label('location', 'สถานที่'); ?>
-
-        <?php echo Form::text('location',null, ['class' => 'form-control']); ?>
-
+      <div class="form-group">
+            <label >สถานที่</label>
+          <?php echo Form::select('location', $location); ?> 
+         
     </div>
     <div class="form-group">
-        <?php echo Form::submit('Create', ['class' => 'btn btn-primary']); ?>
+        <?php echo Form::submit('สร้างใบแจ้งซ่อม', ['class' => 'btn btn-primary']); ?>
+
 
     </div>
 
     <?php echo Form::close(); ?>
 
+    
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('app2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -14,55 +14,92 @@
       <?php echo Form::model($notify, array('route' => array('job.update', $notify->id), 'method' => 'PUT')); ?>
 
      <div class="form-group">
-        <?php echo Form::hidden('status', 'waite'); ?>
-
+        
 
          <?php echo Form::label('user_id', 'ID'); ?>
 
-         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control','disabled' => 'disabled']); ?>
+         <?php echo Form::text('user_id',$user->id , ['class' => 'form-control','readonly' => 'readonly']); ?>
 
+         <?php if($user->hasRole('admin')): ?>
+             <label >แผนก</label>       
+           <?php echo Form::select('department_id', $department, Input::old('department_id')); ?> 
 
-         <label >แผนก</label>
+         <?php else: ?>
+
+         <label>แผนก</label>
        
-           <?php echo Form::text('department_id', $notify->department()->first()->name, ['class' => 'form-control','disabled' => 'disabled'] ); ?> 
+           <?php echo Form::text('department_id', $notify->department()->first()->name, ['class' => 'form-control','readonly' => 'readonly'] ); ?> 
+        <?php endif; ?>
 
    
     </div>
     <div class="form-group">
         <?php echo Form::label('describe', 'รายละเอียด'); ?>
 
-        <?php echo Form::textarea('describe',$notify->describe, ['class' => 'form-control','disabled' => 'disabled']); ?>
+        <?php echo Form::textarea('describe',$notify->describe, ['class' => 'form-control','readonly' => 'readonly']); ?>
 
     </div>
 
     <div class="form-group">
         <?php echo Form::label('location', 'สถานที่'); ?>
 
-        <?php echo Form::text('location',$notify->location, ['class' => 'form-control','disabled' => 'disabled']); ?>
+        <?php echo Form::text('location',$notify->location, ['class' => 'form-control','readonly' => 'readonly']); ?>
+
+    </div>
+
+    <div class="form-group">
+        <?php echo Form::label('comment', 'หมายเหตุ'); ?>
+
+        <?php echo Form::text('comment',NULL, ['class' => 'form-control']); ?>
 
     </div>
     <div>
         
+     <?php if($user->hasRole('captain')&&$user->hasRole('technician')): ?>    
         <label >มอบหมายงาน</label>
-         <?php foreach($tech as $t): ?>         
-
+         <?php foreach($tech as $t): ?>    
             <?php $checked =  $t->id ; ?>
                 <div class="checkbox">
-                    <label>
-                        <?php echo Form::checkbox('tech[]', $t->user_id, $checked); ?> <?php echo e($t->name); ?>
+                  <label>
+                    <?php echo Form::checkbox('tech[]', $t->user_id     ); ?> 
+                        
+                    <?php echo e($t->name); ?>
 
                     </label>
                 </div>
+       
         <?php endforeach; ?>
     </div>
+    
+    <?php elseif($user->hasRole('technician')): ?>
 
+        <?php echo Form::checkbox('tech[]',$user->id, $user->id); ?> 
+                        <?php echo e($user->profile()->first()->name); ?>
+
+
+
+     <?php endif; ?>
 
     <div class="form-group">
-        <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
+        <?php echo Form::submit('ปรับเปลี่ยนสถานะงานซ่อม', ['class' => 'btn btn-primary']); ?>
 
-    </div>
+        <?php echo Form::close(); ?>
+
+
+    <?php if($notify->status=='operating'): ?>
+    <?php echo Form::model($notify, array('route' => array('notify.update', $notify->id), 'method' => 'PUT')); ?>
+
+    <?php echo Form::hidden('statusN', 'rating'); ?>
+
+   
+    <?php echo Form::submit('งานเสร็จเรียบร้อย', ['class' => 'btn btn-danger','onclick' => 'return confirm("Are you sure?");']); ?>
+
 
     <?php echo Form::close(); ?>
 
+    <?php endif; ?>
+  </div>
+
+   
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('app2', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

@@ -1,5 +1,5 @@
-@extends('app')
-
+@extends('home')
+<!-- app -->
 @section('content')
 
     @if (count($errors) > 0)
@@ -43,7 +43,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+        {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}<a class="btn btn-primary" href="\users">Cancel</a>
     </div>
 
     {!! Form::close() !!}

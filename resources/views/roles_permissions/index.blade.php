@@ -1,5 +1,5 @@
-@extends('app')
-
+@extends('home')
+<!-- app -->
 @section('content')
     {!! Form::open(['url' => '/role_permission']) !!}
     <table class="table table-striped">

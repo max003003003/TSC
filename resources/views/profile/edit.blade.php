@@ -1,5 +1,5 @@
-@extends('app')
-
+@extends('home')
+<!-- app -->
 @section('content')
 
     @if (count($errors) > 0)
@@ -24,7 +24,13 @@
         {!! Form::label('tel', 'tel') !!}
         {!! Form::text('tel', $profile->tel, ['class' => 'form-control']) !!}
     </div>
-    
+     @if($user->hasRole('admin'))
+            <div class="form-group">
+            <label >แผนก</label>               
+                   {!! Form::select('department_id', $department,$profile->department_id )  !!} 
+           </div>
+     @endif
+
     <div class="form-group">
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
     </div>

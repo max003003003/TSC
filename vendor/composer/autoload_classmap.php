@@ -9,6 +9,7 @@ return array(
     'CreateDepartmentNotifyTable' => $baseDir . '/database/migrations/2015_11_27_150813_create_department_notify_table.php',
     'CreateDepartmentsTable' => $baseDir . '/database/migrations/2015_11_13_175801_create_departments_table.php',
     'CreateHistoriesTable' => $baseDir . '/database/migrations/2015_11_21_100020_create_histories_table.php',
+    'CreateLocationsTable' => $baseDir . '/database/migrations/2015_12_09_175038_create_locations_table.php',
     'CreateNotifiesTable' => $baseDir . '/database/migrations/2015_11_06_192336_create_notifies_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
     'CreateProfilesTable' => $baseDir . '/database/migrations/2015_11_14_030506_create_profiles_table.php',

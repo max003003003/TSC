@@ -3,16 +3,40 @@
 namespace Illuminate\Auth;
 
 use Illuminate\Auth\Access\Gate;
-use Illuminate\Support\ServiceProvider;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Notify;
+use App\Policies\NotifyPolicy;
+
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 
+
 class AuthServiceProvider extends ServiceProvider
+
 {
     /**
      * Register the service provider.
      *
      * @return void
      */
+    
+    protected $policies = [
+        Notify::class => NotifyPolicy::class,
+    ];
+
+    /**
+     * Register any application authentication / authorization services.
+     *
+     * @param  \Illuminate\Contracts\Auth\Access\Gate  $gate
+     * @return void
+     */
+    public function boot(GateContract $gate)
+    {
+        $this->registerPolicies($gate);
+
+    }
+
+
     public function register()
     {
         $this->registerAuthenticator();

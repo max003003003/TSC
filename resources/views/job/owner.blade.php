@@ -1,31 +1,12 @@
-<!DOCTYPE html>
+@extends('home')
 
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
-
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
-
-	<!-- Fonts -->
-	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-
-	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-	<!--[if lt IE 9]>
-		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	<![endif]-->
-</head>
-
+@section('content')
 <body>
       <table class="table">
        <thead>
         <tr>
             <th>#</th>
-            <th>Dscribe</th>
+            <th>Describe</th>
             <th>Location</th>
             <th>Status</th>
             
@@ -41,7 +22,18 @@
 	                  </a></td>
 	                <td>{{ $notify->describe }}</td>
 	                <td>{{ $notify->location }}</td>
-	                <td>{{ $notify->status }}</td>                         
+	                <td>{{ $notify->status }}</td>   
+	                @if($op)
+	             <td width="150">
+                 <a class="btn btn-primary" href="{{ URL::route('job.edit', $notify->id) }}">ปรับสถานะ</a>
+
+                    {!! Form::open(array('url' => 'notify/' . $notify->id, 'class' => 'pull-right')) !!}
+                       {!! Form::hidden('_method', 'DELETE') !!}
+                       <!-- {!! Form::submit('Delete', ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?");']) !!}  -->
+                       {!! Form::close() !!}                    
+                </td>
+                
+	                @endif                      
 	            </tr>
 	        @endforeach
       @endif
@@ -53,4 +45,4 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
-
+@stop

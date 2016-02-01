@@ -1,3 +1,4 @@
+<!-- app -->
 <?php $__env->startSection('content'); ?>
     <?php echo Form::open(['url' => '/role_permission']); ?>
 
@@ -47,4 +48,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

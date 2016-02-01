@@ -1,5 +1,5 @@
-@extends('app')
-
+@extends('home')
+<!-- app -->
 @section('content')
 
     <table class="table">

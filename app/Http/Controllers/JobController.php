@@ -12,6 +12,7 @@ use Illuminate\Contracts\Auth\Guard;
 use App\Department;
 use App\Notify as Noti;
 use DB;
+use Validator;
  
 class JobController extends Controller
 {
@@ -45,7 +46,7 @@ class JobController extends Controller
          $notifies=\App\Notify::Where('department_id','=',$this->auth->user()->profile()->first()->department_id)
                ->where('status','=','wait')
                ->get();  
-
+               $notifies=$notifies->reverse();
         return View('job/job',['notifies'=>$notifies,'user'=>$this->auth->user()]);
      
           
@@ -60,7 +61,7 @@ class JobController extends Controller
         
        $notify=DB::select(' SELECT * FROM notifies INNER JOIN notify_user ON notifies.id=notify_user.notify_id WHERE status Like "operating" and notify_user.user_id='.$this->auth->user()->id.''); 
        
-     return View('job/owner',['notifies'=>$notify,'user'=>$this->auth->user()]);
+     return View('job/owner',['notifies'=>$notify,'user'=>$this->auth->user(),'op'=>NULL]);
           
 }
 
@@ -106,7 +107,6 @@ class JobController extends Controller
     public function edit($id)
     {
         $notify=\App\Notify::find($id);
-
         $profile=\App\Profile::where('department_id','=',$this->auth->user()->profile()->first()->department_id)->get();
         
         return view('job/edit',['notify'=>$notify,'user'=>$this->auth->user(),'tech'=>$profile]);
@@ -119,10 +119,43 @@ class JobController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function editStatusJob()
+    {
+     $notify=DB::select(' SELECT * FROM notifies INNER JOIN notify_user ON notifies.id=notify_user.notify_id WHERE status Like "operating" and notify_user.user_id='.$this->auth->user()->id.''); 
+    
+     return View('job/owner',['notifies'=>$notify,'user'=>$this->auth->user(),'op'=>'op']);
+
+    }
+    
+   public function status()
+   {
+    return "jhdld";
+   }
+    
+
     public function update(Request $request, $id)
     { 
+
+  
+	 
+        if ($request->get('tech')==NULL&&$request->get('o')!=2) {
+            return redirect('job/'.$id.'/edit/')
+                        ->withErrors("กรุณากำหนดช่างผู้รับงาน")
+                        ->withInput();
+        }
+
+
+
+
+
+       
         $notify=$this->notifies->find($id); 
         $notify->status='operating';
+        if($request->input('comment')!=NULL)
+            $notify->comment=$request->input('comment');
+        else 
+            $notify->comment='';     
+        
         $notify->save(); 
         $notify->tech()->detach();
         

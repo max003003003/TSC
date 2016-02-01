@@ -1,3 +1,4 @@
+<!-- app -->
 <?php $__env->startSection('content'); ?>
 
     <?php if(count($errors) > 0): ?>
@@ -27,7 +28,13 @@
         <?php echo Form::text('tel', $profile->tel, ['class' => 'form-control']); ?>
 
     </div>
-    
+     <?php if($user->hasRole('admin')): ?>
+            <div class="form-group">
+            <label >แผนก</label>               
+                   <?php echo Form::select('department_id', $department,$profile->department_id ); ?> 
+           </div>
+     <?php endif; ?>
+
     <div class="form-group">
         <?php echo Form::submit('Update', ['class' => 'btn btn-primary']); ?>
 
@@ -37,4 +44,4 @@
 
 
 <?php $__env->stopSection(); ?>
-<?php echo $__env->make('app', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->make('home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

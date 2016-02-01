@@ -1,54 +1,138 @@
-<!DOCTYPE html>
+<?php $__env->startSection('content'); ?>
+<div class="container">    
 
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
-    <link href="<?php echo e(asset('/css/app.css')); ?>" rel="stylesheet">
-        <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>   
-</head>
-<div class="container">
- <table class="table">
-     <h1># : <?php echo e($notify->id); ?></h1>
-     <h1>รายละเอียด : <?php echo e($notify->describe); ?></h1>
-     <h1>สถานที่ : <?php echo e($notify->location); ?></h1>
-     <h1>สถานะ : <?php echo e($notify->status); ?></h1>
-     <h1>แผนก : <?php echo e($notify->department()->first()->name); ?></h1>
-     
-     <h1>ช่างผู้รับผิดชอบ: 
-     <?php if($notify->tech()): ?>
-     <ol>
-            <?php foreach( $notify->tech()->get()  as $t): ?>
-            <br>                
-        
-                <li>
-                 <a href="/../profile/<?php echo e($t->profile()->first()->id); ?>">    
-                       <?php echo e($t->profile()->first()->name); ?>
+<div class="well" >  
 
-                  </a></li>
+    <fieldset > 
+        <legend>ใบแจ้งซ่อมที่: <?php echo e($notify->id); ?></legend>
+        <div class="row">
+           <div class="col-md-4 col-md-offset-1 "><h2>ชื่อผู้แจ้ง :</h2></div>  
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3"><h2>
 
-            <?php endforeach; ?>
-            </ol>
-     <?php endif; ?>
-     </h1>
-     <h1>สถานะการประเมิน : 
+             <a href="/../profile/<?php echo e($user->profile()->first()->id); ?>">
+           <?php echo e($user->profile()->first()->name); ?></a></h2></div>         
+        </div>
+
+
+                 
+        <div class="row">
+           <div class="col-md-4 col-md-offset-1 "><h2>รายละเอียด :</h2></div>
   
-            <?php if($notify->rate()->first()->a ==''): ?>
-                ยังไม่ประเมิน
-            <?php else: ?>
-                ประเมินแล้ว
-            <?php endif; ?>
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3"><h2><?php echo e($notify->describe); ?></h2></div>         
+        </div>
 
-     </h1>     
-     <h1>
-        สร้าง : <?php echo e(date('d F Y  H:i:s', strtotime($notify->created_at->setTimezone(new DateTimeZone('Asia/Bangkok'))))); ?>
+        <div class="row">
+           <div class="col-md-4 col-md-offset-1"><h2>สถานที่ : </h2></div>
+  
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3"><h2><?php echo e($notify->location); ?></h2></div>         
+        </div>
+         <div class="row">
+           <div class="col-md-4 col-md-offset-1"><h2>สถานะ : </h2></div>
+  
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3"><h2><?php echo e($notify->status); ?></h2></div>         
+        </div>
+
+     <div class="row">
+           <div class="col-md-4 col-md-offset-1"><h2>แผนก : </h2></div>
+  
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3"><h2><?php echo e($notify->department()->first()->name); ?></h2></div>         
+        </div>
+         <div class="row">
+           <div class="col-md-4 col-md-offset-1"><h2>ช่างผู้รับผิดชอบ : </h2></div>
+  
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3">
+           <?php if($notify->tech()): ?>
+                        <ol>
+                        <?php foreach( $notify->tech()->get()  as $t): ?>
+                            <br>  
+                                <h2><li>
+                                  <a href="/../profile/<?php echo e($t->profile()->first()->id); ?>">    
+                                      <?php echo e($t->profile()->first()->name); ?> 
+                                  </a>
+                                </li></h2>
+                        <?php endforeach; ?>
+                        </ol>
+                     <?php endif; ?>
 
 
-     </h1>
+           </div>         
+        </div>
+           <div class="row">
+           <div class="col-md-4 col-md-offset-1"><h2>สถานะการประเมิน : </h2></div>
+  
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3"><h2>
+                 <?php if($notify->rate()->first()->a ==''): ?>
+                            ยังไม่ประเมิน
+                        <?php else: ?>
+                            ประเมินแล้ว
+                <?php endif; ?>
+           </h2></div>         
+        </div>
 
+         <div class="row">
+           <div class="col-md-4 col-md-offset-1"><h2>หมายเหตุ : </h2></div>
+  
+       </div>
+        <div class="row">
+           <div class="col-md-3 col-md-offset-3"><h2><?php echo e($notify->comment); ?></h2></div>         
+        </div>
+
+        <div class="row">
+           <div class="col-md-4 col-md-offse-1"><h2>เวลาแจ้งซ่อม : </h2></div>  
+       </div>
+        <div class="row">
+           <div class="col-md-6 col-md-offset-3"><h2>  
+        <?php echo e(\App\Datethai::Datethai($notify->created_at)); ?>
+
+
+           </h2></div>         
+        </div>
+
+         <div class="row">
+           <div class="col-md-4 col-md-offse-1"><h2>เวลาเสร็จสิ้น : </h2></div>  
+       </div>
+       <?php if($notify->status=="rating"||$notify->status=="finished"): ?>
+        <div class="row">
+           <div class="col-md-6 col-md-offset-3"><h2>  
+           <?php echo e(\App\Datethai::Datethai($notify->updated_at)); ?>
+
+
+           </h2></div>         
+        </div>
+       <?php endif; ?>
+
+        <a class="btn btn-primary" href="/../" role="button">กลับ</a>
+              
+
+
+
+
+
+
+                            </fieldset>
+                   </div>
+                </div>
+             </div> 
+        </div>       
+     </div>
+ </div>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
 </html>
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('home', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

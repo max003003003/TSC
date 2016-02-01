@@ -33,5 +33,6 @@ class PasswordController extends Controller {
 		$this->passwords = $passwords;
 		$this->middleware('guest');
 	}
+ 
 
 }
